@@ -3,43 +3,42 @@ import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup } from
 
 export default function SpecItem({ spec }) {
   const isInProgress = spec.status === 'In progress';
-  const cardBorderColor = isInProgress ? '#F6C927' : 'transparent';
+  const cardBorderColor = isInProgress ? 'primary.main' : 'transparent';
   const cardOpacity = spec.status === 'Done' ? 0.5 : 1;
-  const statusColor = isInProgress ? '#ffffff' : '#F6C927';
+  const statusColor = isInProgress ? '#ffffff' : 'primary.main';
 
   return (
     <Card
       sx={{
         borderColor: cardBorderColor,
-        borderWidth: '3px',
+        borderWidth: '1px',
         borderStyle: 'solid',
         opacity: cardOpacity,
-        width: '1200px',
-        height: '130px',
-        backgroundColor: "#121231", 
+        width: '1168px',
+        height: '143px',
+        bgcolor: "secondary.main", 
         color: "white",
         
       }}
     >
-      <CardContent>
+    <CardContent>
         <Grid container >
           <Grid item xs={12}>
-            <Typography sx={{fontSize: '25px'}}>{spec.title}</Typography>
+            <Typography sx={{ fontSize: '25px',}}>{spec.title}</Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography sx={{marginBottom: '60px', fontSize: '12px'}}>{spec.content}</Typography>
+            <Typography sx={{marginBottom: '60px',  fontSize: '12px'}}>{spec.content}</Typography>
           </Grid>
           <Grid item xs={3}>
-            <Typography sx={{marginLeft: '90px', fontSize: '17px', color: statusColor}}>{spec.status}</Typography>
+            <Typography sx={{marginLeft: '120px', color: statusColor, }}>{spec.status}</Typography>
           </Grid>
           <Grid item xs={3}>
-            <Button variant='text' size='small' sx={{color: 'white'}}>Edit</Button>
+            <Button variant='text' size='small' sx={{color: 'white', marginLeft:'70px'}}>Edit</Button>
           </Grid>
           <AvatarGroup>
-            <Avatar alt="User 1" sx={{bgcolor:"#121231", color:'#F6C927', }}>A</Avatar>
-            <Avatar alt="User 2" sx={{bgcolor:"#121231", color:'#F6C927', }}>A</Avatar>
-            <Avatar alt="User 3" sx={{bgcolor:"#121231", color:'#F6C927', }}>A</Avatar>
-            <Avatar alt="User 4" sx={{bgcolor:"#121231", color:'#F6C927', }}>A</Avatar>
+            {spec.participants.map((person, index) => (
+              <Avatar key={index} alt="User 1" sx={{bgcolor:"#121231", color:'#F6C927', }}>{person[0]}</Avatar>
+            ))}
           </AvatarGroup>
         </Grid>
       </CardContent>
