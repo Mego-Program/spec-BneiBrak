@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
-import StepButton from '@mui/material/StepButton';
+import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import StepBox from './StepBox';
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const steps = ['Select campaign settings', 'Create an ad group', 'KPIs'];
+
+const customConnectorStyles = {
+  '& .MuiStepConnector-lineHorizontal': {
+    border: '2px solid #121231',
+    
+    
+  },
+};
 
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
@@ -21,9 +27,10 @@ export default function HorizontalNonLinearStepper() {
   const allStepsCompleted = () => completedSteps === totalSteps;
 
   const handleNext = () => {
-    const newActiveStep = isLastStep() && !allStepsCompleted()
-      ? steps.findIndex((step, i) => !(i in completed))
-      : activeStep + 1;
+    const newActiveStep =
+      isLastStep() && !allStepsCompleted()
+        ? steps.findIndex((step, i) => !(i in completed))
+        : activeStep + 1;
 
     setActiveStep(newActiveStep);
   };
@@ -45,31 +52,69 @@ export default function HorizontalNonLinearStepper() {
   };
 
   return (
-    <Box sx={{ width: '50%', margin: '0 auto' }}>
-      <Stepper nonLinear activeStep={activeStep}>
+    <Box sx={{ width: '50%', margin: '0 auto', marginTop: '3%' }}>
+      <Stepper
+        activeStep={activeStep}
+        alternativeLabel
+        sx={{
+          backgroundColor: 'transparent',
+          padding: 0,
+          zIndex: 1,
+          ...customConnectorStyles, 
+        }}
+      >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(index)}>
-              {activeStep === index ? (
-                <Typography variant="caption">{label}</Typography>
-              ) : (
-                <Typography variant="caption">{index + 1}</Typography>
-              )}
-            </StepButton>
+            <StepLabel
+              onClick={handleStep(index)}
+              icon={
+                <Box
+                  sx={{
+                    width: activeStep === index ? 191 : 38,
+                    height: 38,
+                    borderRadius: activeStep === index ? '26px' : '50%',
+                    backgroundColor: '#121231',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    border: activeStep === index ? '1px solid #F6C927' : '1px solid #121231',
+                    color: 'white',
+                    cursor: 'pointer',
+                    zIndex: 2,
+                  }}
+                >
+                  {activeStep === index ? label : index + 1}
+                </Box>
+              }
+            ></StepLabel>
           </Step>
         ))}
       </Stepper>
+
       <StepBox active={true} step={activeStep + 1} />
-      <ButtonGroup sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: '25%',
+          left: '25%',
+          right: '25%',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: activeStep === 0 ? 'flex-end' : 'space-between',
+          pt: 2,
+          
+        }}
+      >
         {activeStep > 0 && (
-          <Button onClick={handleBack} sx={{ '&:hover': { backgroundColor: '#3f51b5', color: 'white' } }}>
+          <Button onClick={handleBack} sx={{ backgroundColor: '#21213E', color: 'white' }}>
             Back
           </Button>
         )}
-        <Button onClick={handleNext} sx={{ '&:hover': { backgroundColor: '#3f51b5', color: 'white' } }}>
+        <Button onClick={handleNext} sx={{ backgroundColor: '#21213E', color: 'white' }}>
           {isLastStep() ? 'Finish' : 'Next'}
         </Button>
-      </ButtonGroup>
+      </Box>
     </Box>
   );
 }

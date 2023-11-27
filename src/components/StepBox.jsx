@@ -1,7 +1,8 @@
-// StepBox.jsx
 import React from 'react';
 import Box from '@mui/material/Box';
-import BasicSelect from './step3'
+import RocketKPIForm from './kpi';
+import InvisibleNamesList from './step2';
+import TextEditor from './step1'
 
 const StepBox = ({ active, step }) => {
   const boxStyle = {
@@ -11,11 +12,24 @@ const StepBox = ({ active, step }) => {
     background: '#121231',
     display: active ? 'block' : 'none',
     position: 'absolute',
-    top: '50%', // Set top to 50% to position vertically at the center
-    left: '50%', // Set left to 50% to position horizontally at the center
-    transform: 'translate(-50%, -50%)', // Center the box using transform
+    top: '50%', 
+    left: '50%', 
+    transform: 'translate(-50%, -50%)',
     color: '#fff',
     padding: '20px',
+    overflowY: 'auto', 
+    maxHeight: '400px', 
+  };
+
+
+  const contentStyle = {
+    position: 'absolute',
+    top: '5%',
+    left: '3%',
+    right: '5%',
+    bottom: 0,
+    overflow: 'auto',
+    maxHeight: '400px', 
   };
 
   let content;
@@ -24,24 +38,23 @@ const StepBox = ({ active, step }) => {
     case 1:
       content = (
         <div>
-          <label htmlFor="textInput">Text Input:</label>
-          <input type="text" id="textInput" name="textInput" />
+        <TextEditor />
         </div>
       );
       break;
     case 2:
       content = (
-        <div>
-          מקום שמור להכנסת קומפוונטות חיצוניות
+        <div style={contentStyle}>
+          <InvisibleNamesList />
         </div>
       );
       break;
     case 3:
-      content = (<BasicSelect/>
+      content = (
+        <div>
+        < RocketKPIForm />
+        </div>
       );
-      break;
-    default:
-      content = null;
   }
 
   return <Box sx={boxStyle}>{content}</Box>;
