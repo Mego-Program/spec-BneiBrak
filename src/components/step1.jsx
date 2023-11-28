@@ -15,21 +15,36 @@ const TextEditor = () => {
   return (
     <div>
       <TextField
+        aria-label="Title"
         label="Title"
+        minRows={3}
+        fullWidth
+        placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        fullWidth
-        margin="normal"
-        sx={{ backgroundColor: '#21213E' }}
+        style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
+        InputProps={{
+          style: {
+            color: 'white',
+          },
+        }}
       />
-      <TextareaAutosize
+      <TextField
         aria-label="Content"
+        label="Content"
         minRows={3}
+        fullWidth
         placeholder="Content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
         style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
+        InputProps={{
+          style: {
+            color: 'white',
+          },
+        }}
       />
+
       <Button
         variant="contained"
         color="primary"

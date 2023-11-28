@@ -40,6 +40,11 @@ const RocketKPIForm = () => {
               value={line.task}
               onChange={(e) => handleInputChange(index, 'task', e.target.value)}
               style={{ color: '#fff', borderColor: '#F6C927' }}
+              InputProps={{
+                style: {
+                  color: 'white',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={3}>
@@ -52,6 +57,7 @@ const RocketKPIForm = () => {
               >
                 <MenuItem value="within">Within</MenuItem>
                 <MenuItem value="until">Until</MenuItem>
+
               </Select>
             </FormControl>
           </Grid>
@@ -63,6 +69,12 @@ const RocketKPIForm = () => {
                 value={line.days}
                 onChange={(e) => handleInputChange(index, 'days', e.target.value)}
                 style={{ color: '#fff' }}
+                InputProps={{
+                  style: {
+                    color: 'white',
+                  },
+                }}
+
               />
             </Grid>
           )}
@@ -79,7 +91,7 @@ const RocketKPIForm = () => {
           )}
           {index > 0 && (
             <Button
-                 size="small"
+              size="small"
               variant="outlined"
               onClick={() => handleRemoveLine(index)}
               style={{ color: '#fff', borderColor: '#F6C927', marginLeft: '10px' }}
