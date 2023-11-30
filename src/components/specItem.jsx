@@ -1,5 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup } from '@mui/material';
+import { Link } from 'react-router-dom';
+
 
 export default function SpecItem({ spec }) {
   const isInProgress = spec.status === 'In progress';
@@ -33,7 +35,7 @@ export default function SpecItem({ spec }) {
             <Typography sx={{marginLeft: '120px', color: statusColor, }}>{spec.status}</Typography>
           </Grid>
           <Grid item xs={3}>
-            <Button variant='text' size='small' sx={{color: 'white', marginLeft:'70px'}}>Edit</Button>
+          <Button variant='text' size='small' sx={{color: 'white', marginLeft:'70px',}} component={Link} to={`/${spec.id}`}>Edit</Button>
           </Grid>
           <AvatarGroup>
             {spec.participants.map((person, index) => (
