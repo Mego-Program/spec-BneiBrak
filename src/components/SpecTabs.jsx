@@ -21,7 +21,7 @@ const SpecTabs = ({ teamSpecs, onUpdate }) => {
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
         {/* Content for "KPI Items" tab */}
-        <Typography variant="h6">KPI Items Content Goes Here</Typography>
+        <Typography variant="h6" style={{ color: 'white' }} >KPI Items Content Goes Here</Typography>
         {/* Add KPI Items related content */}
       </TabPanel>
     </div>
