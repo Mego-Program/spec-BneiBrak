@@ -35,7 +35,7 @@ export default function SpecItem({ spec }) {
             <Typography sx={{marginLeft: '120px', color: statusColor, }}>{spec.status}</Typography>
           </Grid>
           <Grid item xs={3}>
-          <Button variant='text' size='small' sx={{color: 'white', marginLeft:'70px',}} component={Link} to={`/${spec.id}`}>Edit</Button>
+          <Button variant='text' size='small' sx={{color: 'white', marginLeft:'70px',}} component={Link} to={`/tabs`}>Edit</Button>
           </Grid>
           <AvatarGroup>
             {spec.participants.map((person, index) => (
