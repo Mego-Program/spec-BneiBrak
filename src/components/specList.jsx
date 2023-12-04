@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Grid, Button, Typography } from "@mui/material";
-import SpecItem from "./specItem";
-import AddBox from "@mui/icons-material/AddBox";
-import Timeline from "@mui/lab/Timeline";
-import TimelineItem from "@mui/lab/TimelineItem";
-import TimelineSeparator from "@mui/lab/TimelineSeparator";
-import TimelineConnector from "@mui/lab/TimelineConnector";
-import TimelineContent from "@mui/lab/TimelineContent";
-import TimelineDot from "@mui/lab/TimelineDot";
+import React, { useState} from 'react';
+import { Grid, Button, Typography } from '@mui/material';
+import SpecItem from './specItem';
+import AddBox from '@mui/icons-material/AddBox';
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
 
 function SpecList() {
   //Here is the code that will call and get the information via api
@@ -112,6 +112,7 @@ function SpecList() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Button
+              component={Link} to={"/stepper"}
               variant="contained"
               color="primary"
               style={{
@@ -124,7 +125,7 @@ function SpecList() {
                 marginTop: "20px",
               }}
             >
-              <Typography variant="button" sx={{ color: "secondary.main" }}>
+              <Typography variant="button" sx={{ color: 'secondary.main' }}>
                 Add a new spec
               </Typography>
               <div

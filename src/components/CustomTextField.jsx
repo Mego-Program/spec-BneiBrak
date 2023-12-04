@@ -26,11 +26,19 @@ const CustomTextField = ({ teamSpecs }) => {
         value={inputValue}
         onChange={handleChange}
         margin="normal"
+        InputProps={{
+            style: {
+              backgroundColor: 'white',
+            },
+          }}
+    
       />
-      
       <Button variant="contained" color="primary" onClick={handleButtonClick}>
-        Submit
+      Update Title
       </Button>
+      <br/>
+      <br/>
+      <br/>
     </div>
   );
 };
