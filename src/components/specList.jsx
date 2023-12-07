@@ -30,19 +30,33 @@ function SpecList() {
         <Timeline
           position="left"
           sx={{
-            width: '20px',
-            padding: '1px',
-            height: '100%',
-            marginTop: '75px',
+            width: "20px",
+            padding: "1px",
+            height: "100%",
+            marginTop: "75px",
           }}
         >
           {teamSpecs.map((spec, index) => (
-            <TimelineItem key={spec.id} sx={{ minHeight: `${100 / teamSpecs.length - 2}%` }}>
+            <TimelineItem
+              key={spec.id}
+              sx={{ minHeight: `${100 / teamSpecs.length - 2}%` }}
+            >
               <TimelineSeparator>
-                <TimelineDot color="secondary"/>
-                {index < teamSpecs.length && <TimelineConnector sx={{ backgroundColor: 'secondary.main' }} />}
+                <TimelineDot color="secondary" />
+                {index < teamSpecs.length && (
+                  <TimelineConnector
+                    sx={{ backgroundColor: "secondary.main" }}
+                  />
+                )}
               </TimelineSeparator>
-              <TimelineContent sx={{ paddingLeft: '10px', paddingTop: '4px', color: 'white', opacity: spec.status === 'Done' ? 0.5 : 1 }}>
+              <TimelineContent
+                sx={{
+                  paddingLeft: "10px",
+                  paddingTop: "4px",
+                  color: "white",
+                  opacity: spec.status === "Done" ? 0.5 : 1,
+                }}
+              >
                 {spec.date}
               </TimelineContent>
             </TimelineItem>
@@ -57,31 +71,30 @@ function SpecList() {
               variant="contained"
               color="primary"
               style={{
-                width: '278px',
-                height: '55px',
-                borderRadius: '5px',
-                justifyContent: 'space-between',
-                marginLeft: '10px',
-                display: 'flex',
-                marginTop: '20px'
+                width: "278px",
+                height: "55px",
+                borderRadius: "5px",
+                justifyContent: "space-between",
+                marginLeft: "10px",
+                display: "flex",
+                marginTop: "20px",
               }}
             >
-              <Typography variant="button" sx={{ color: 'secondary.main' }} >
+              <Typography variant="button" sx={{ color: 'secondary.main' }}>
                 Add a new spec
               </Typography>
               <div
                 style={{
-                  backgroundColor: 'secondary.main',
-                  borderRadius: '5px',
-                  padding: '6px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  scale: '1.5',
-                  height: '100%',
-
+                  backgroundColor: "secondary.main",
+                  borderRadius: "5px",
+                  padding: "6px",
+                  display: "flex",
+                  alignItems: "center",
+                  scale: "1.5",
+                  height: "100%",
                 }}
               >
-                <AddBox sx={{height : '55px'}}/>
+                <AddBox sx={{ height: "55px" }} />
               </div>
             </Button>
           </Grid>
