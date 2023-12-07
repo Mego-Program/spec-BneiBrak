@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { Grid, Button, Typography } from '@mui/material';
 import SpecItem from './specItem';
 import AddBox from '@mui/icons-material/AddBox';
@@ -8,66 +8,21 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function SpecList() {
-  //Here is the code that will call and get the information via api
+      const [teamSpecs, setTeamSpecs] = useState([]);
 
-  // const [teamSpecs, setTeamSpecs] = useState([]);
-
-  // useEffect(() => {
-  //   fetch('your-api-endpoint')
-  //     .then(response => response.json())
-  //     .then(data => setTeamSpecs(data))
-  //     .catch(error => console.error('Error fetching data:', error));
-  // }, []);
-
-  const [teamSpecs, setTeamSpecs] = useState([
-    {
-      id: 1,
-      title: "Team Spec 1",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae vitae nibh purus non dictum turpis leo, quis nam. Hac sed lectus est id. Nisi vestibulum, placerat integer nam nam. Blandit sagittis.",
-      date: "12.12.23",
-      status: "In progress",
-      participants: ["A", "B", "C", "D"],
-    },
-    {
-      id: 2,
-      title: "Team Spec 2",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae vitae nibh purus non dictum turpis leo, quis nam. Hac sed lectus est id. Nisi vestibulum, placerat integer nam nam. Blandit sagittis.",
-      date: "13.12.23",
-      status: "Done",
-      participants: ["A", "B", "C", "D"],
-    },
-    {
-      id: 3,
-      title: "Team Spec 3",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae vitae nibh purus non dictum turpis leo, quis nam. Hac sed lectus est id. Nisi vestibulum, placerat integer nam nam. Blandit sagittis.",
-      date: "14.12.23",
-      status: "In progress",
-      participants: ["A", "B", "C", "D"],
-    },
-    {
-      id: 4,
-      title: "Team Spec 4",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae vitae nibh purus non dictum turpis leo, quis nam. Hac sed lectus est id. Nisi vestibulum, placerat integer nam nam. Blandit sagittis.",
-      date: "15.12.23",
-      status: "Done",
-      participants: ["A", "B", "C", "D"],
-    },
-    {
-      id: 5,
-      title: "Team Spec 5",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae vitae nibh purus non dictum turpis leo, quis nam. Hac sed lectus est id. Nisi vestibulum, placerat integer nam nam. Blandit sagittis.",
-      date: "16.12.23",
-      status: "In progress",
-      participants: ["A", "B", "C", "D"],
-    },
-  ]);
+      useEffect(() => {
+        axios.get("http://localhost:3000/spec")
+        .then(response => {
+            setTeamSpecs(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      }, []);
 
   return (
     <Grid container spacing={2}>

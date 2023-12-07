@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3000';
-
+console.log(getAllSpecs())
 
 //creating spec
 async function createSpec(data) {
   try {
-    const response = await axios.post(`${BASE_URL}/specs`, data);
+    const response = await axios.post(`${BASE_URL}/spec`, data);
     return response.data;
   } catch (error) {
     console.error('Error creating spec:', error);
@@ -17,15 +17,15 @@ async function createSpec(data) {
 //Get all Specs
 async function getAllSpecs() {
   try {
-    const response = await axios.get(`${BASE_URL}/specs`);
+    const response = await axios.get(`${BASE_URL}/spec`);
     console.log('Specifications:', response.data);
     return response.data; 
   } catch (error) {
     console.error('Error getting specs:', error);
     throw error; 
 };
-
 }
+
 // Get a Spec by ID
 async function getSpecById(id) {
   try {
@@ -114,4 +114,7 @@ async function deleteKpi(id) {
   }
 }
 
+
+
+console.log(getAllSpecs)
 export {createSpec, getAllSpecs, getSpecById, updateSpec, deleteSpec, createKpi, getAllKpi, getKpiById, updateKpi, deleteKpi }

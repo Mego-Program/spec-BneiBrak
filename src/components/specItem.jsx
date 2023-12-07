@@ -54,10 +54,9 @@ export default function SpecItem({ spec }) {
               '&:hover': {
                 bgcolor: '#F6C927',
               },
-            }} component={Link} to={'./SpecTabs'}>
+            }} component={Link} to={`/tabs`}>
               <EditIcon />
             </Button>
-            
             <Button variant='text' size='small' sx={{
               color: 'white',
               height: '53',
