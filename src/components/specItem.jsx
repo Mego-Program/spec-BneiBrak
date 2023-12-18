@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup } from '@mui/material';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-
+import axios from 'axios';
 
 
 export default function SpecItem({ spec }) {
@@ -11,6 +11,22 @@ export default function SpecItem({ spec }) {
   const cardBorderColor = isInProgress ? 'primary.main' : 'transparent';
   const cardOpacity = spec.status === 'Done' ? 0.5 : 1;
   const statusColor = isInProgress ? '#ffffff' : 'primary.main';
+
+  const [deleted, setDeleted] = useState(false);
+
+  const handleDelete = async (idToDelete) => {
+    try {
+      await axios.delete(`/spec/${idToDelete}`);
+      setDeleted(true);
+    } catch (error) {
+      console.error('Error deleting:', error);
+    }
+  };
+
+  const onClickDelete = () => {
+    const idToDelete = spec._id;
+    handleDelete(idToDelete);
+  };
 
   return (
     <Card
@@ -57,7 +73,7 @@ export default function SpecItem({ spec }) {
             }} component={Link} to={`/tabs`}>
               <EditIcon />
             </Button>
-            <Button variant='text' size='small' sx={{
+            <Button onClick={onClickDelete} variant='text' size='small' sx={{
               color: 'white',
               height: '53',
               width: '53',
