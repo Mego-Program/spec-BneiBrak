@@ -14,6 +14,12 @@ import axios from 'axios';
 function SpecList() {
       const [teamSpecs, setTeamSpecs] = useState([]);
 
+      function deleteSpec(specId) {
+        // const newSpecs = [...teamSpecs]
+        const newSpecs = teamSpecs.filter(spec => spec._id !== specId);
+        setTeamSpecs(newSpecs)
+      }
+
       useEffect(() => {
         axios.get("http://localhost:3000/spec")
         .then(response => {
@@ -100,7 +106,7 @@ function SpecList() {
           </Grid>
           {teamSpecs.map((spec) => (
             <Grid key={spec.id} item xs={12}>
-              <SpecItem spec={spec} />
+              <SpecItem spec={spec} deleteSpec={deleteSpec} />
             </Grid>
           ))}
         </Grid>

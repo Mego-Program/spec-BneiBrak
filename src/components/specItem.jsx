@@ -6,18 +6,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
 
-export default function SpecItem({ spec }) {
+export default function SpecItem({ spec, deleteSpec }) {
   const isInProgress = spec.status === 'In progress';
   const cardBorderColor = isInProgress ? 'primary.main' : 'transparent';
   const cardOpacity = spec.status === 'Done' ? 0.5 : 1;
   const statusColor = isInProgress ? '#ffffff' : 'primary.main';
 
-  const [deleted, setDeleted] = useState(false);
+  const [deleted, setDeleted] = useState(true);
 
   const handleDelete = async (idToDelete) => {
     try {
-      await axios.delete(`/spec/${idToDelete}`);
+      await axios.delete(`http://localhost:3000/spec/${idToDelete}`);
       setDeleted(true);
+      deleteSpec(idToDelete)
     } catch (error) {
       console.error('Error deleting:', error);
     }
@@ -88,7 +89,7 @@ export default function SpecItem({ spec }) {
                 bgcolor: '#F6C927',
               
               },
-            }} component={Link} to={' '}>
+            }} >
               <DeleteIcon />
             </Button>
           </Grid>
