@@ -1,12 +1,13 @@
-import * as React from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import RemoveIcon from "@mui/icons-material/Remove";
 
-export default function AlertDialog() {
+export default function AlertDialog({ onDelete, deleteKpiItem, specId }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -17,20 +18,32 @@ export default function AlertDialog() {
     setOpen(false);
   };
 
+  const handleDelete = () => {
+    onDelete(specId); // Pass the specId to the onDelete function
+    handleClose();
+  };
+
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Delete
-      </Button>
+      <RemoveIcon
+        style={{
+          cursor: "pointer",
+          color: "#F6C927",
+          fontSize: 24,
+          display: "flex",
+          textAlign: "center",
+          direction: "row",
+        }}
+        onClick={handleClickOpen}
+      />
+
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Spec Delete"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Spec Delete"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Are you sure?
@@ -38,7 +51,7 @@ export default function AlertDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>No</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleDelete} autoFocus>
             Yes
           </Button>
         </DialogActions>

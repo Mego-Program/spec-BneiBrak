@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
-import { Tabs, Tab, Box, Typography } from '@mui/material';
-import ContentEditorComponent from './ContentEditorComponent';
+import React, { useState } from "react";
+import { Tabs, Tab, Box, Typography } from "@mui/material";
+import ContentEditorComponent from "./ContentEditorComponent";
+import {
+  CustomDropdown,
+  InputTextLine,
+  CustomPeriod,
+  CustomNumberField,
+} from "./EditKpi";
+import AlertDialog from "./AlertDialog";
+import KpiComponent from "./KpiComponent";
+import CreateKpi from "./CreateKpi";
 
 const SpecTabs = ({ teamSpecs, onUpdate }) => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -21,7 +30,9 @@ const SpecTabs = ({ teamSpecs, onUpdate }) => {
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
         {/* Content for "KPI Items" tab */}
-        <Typography variant="h6" style={{ color: 'white' }} >KPI Items Content Goes Here</Typography>
+        <CreateKpi/>
+
+      
         {/* Add KPI Items related content */}
       </TabPanel>
     </div>
@@ -50,4 +61,3 @@ const TabPanel = (props) => {
 };
 
 export default SpecTabs;
-
