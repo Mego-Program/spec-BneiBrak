@@ -6,8 +6,8 @@ import RichTextEditor from './RichTextEditor';
 function App() {
   return (
     <Container>
-      <SpecList />
-      {/* <RichTextEditor/> */}
+      {/* <SpecList /> */}
+      <RichTextEditor/>
       
     </Container>
   );
