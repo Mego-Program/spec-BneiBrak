@@ -5,7 +5,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 
-
 export default function SpecItem({ spec }) {
   const isInProgress = spec.status === 'In progress';
   const cardBorderColor = isInProgress ? 'primary.main' : 'transparent';

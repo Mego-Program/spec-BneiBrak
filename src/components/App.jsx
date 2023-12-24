@@ -8,9 +8,9 @@ import AlertDialog from './AlertDialog';
 function App() {
   return (
     <Container>
-      {/* <SpecList /> */}
-      <SpecTabs />
-      {<CustomDropdown/>}
+    <SpecList />
+      {/*<SpecTabs />*/}
+      {/*{<CustomDropdown/>}*/}
       {/* {<AlertDialog/>} */}
     </Container>
   );

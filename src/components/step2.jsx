@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// eslint-disable-next-line no-unused-vars
+import React, { useState, useEffect } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -6,22 +7,31 @@ import {
   MenuItem,
   Typography,
   Grid,
-  Button,
 } from '@mui/material';
+import axios from 'axios';
 
 const InvisibleNamesList = () => {
-  const allNames = [
-    'The Scrum Master: Finny Kaminer',
-    'Shlomo Vulkan',
-    'Idan Hadad',
-    'Oshie Fishman',
-    'Pinchas Tseinwirt',
-    'Shamulik Roth',
-    'chat.openai'
-  ];
-
+  const [allNames, setAllNames] = useState([]);
   const [visibleNames, setVisibleNames] = useState([]);
   const [selectedName, setSelectedName] = useState('');
+
+
+  useEffect(() => {
+    // Fetch names from the backend API
+    const fetchNames = async () => {
+      const token = localStorage.getItem("authToken");
+      console.log('token:', token)
+      try {
+        const response = await axios.get('http://localhost:3000/controller_functions/infraImport/infra',
+            {headers: {'Authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
+        setAllNames(response.data.data.result);
+      } catch (error) {
+        console.error('Error fetching names:', error);
+      }
+    };
+
+    fetchNames();
+  }, []); // Empty dependency array to ensure the effect runs only once
 
   const handleNameChange = (event) => {
     const newName = event.target.value;
@@ -44,44 +54,44 @@ const InvisibleNamesList = () => {
   };
 
   return (
-    <div>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <FormControl fullWidth>
-            <InputLabel style={{ color: '#fff' }}>Names for team selection</InputLabel>
-            <Select
-              value={selectedName}
-              onChange={handleNameChange}
-              label="Names for team selection"
-              style={{ color: '#fff' }}
-            >
-              {allNames.map((name, index) => (
-                !visibleNames.includes(name) && (
-                  <MenuItem key={index} value={name}>
-                    {name}
-                  </MenuItem>
-                )
-              ))}
-            </Select>
-          </FormControl>
+      <div>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel style={{ color: '#fff' }}>Names for team selection</InputLabel>
+              <Select
+                  value={selectedName}
+                  onChange={handleNameChange}
+                  label="Names for team selection"
+                  style={{ color: '#fff' }}
+              >
+                {allNames.map((user, index) => (
+                    !visibleNames.includes(user.firstName) && (
+                        <MenuItem key={index} value={user.firstName  + ' ' + user.lastName}>
+                          {user.firstName  + ' ' + user.lastName}
+                        </MenuItem>
+                    )
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
         </Grid>
-      </Grid>
 
-      <Typography variant="h6" style={{ marginTop: '20px' }}>
-        teammates:
-      </Typography>
-      <ul>
-        {visibleNames.map((name, index) => (
-          <li
-            key={index}
-            onClick={() => handleNameClick(name)}
-            style={{ cursor: 'default' }}
-          >
-            <span style={{ cursor: 'pointer' }}>{name}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+        <Typography variant="h6" style={{ marginTop: '20px' }}>
+          Teammates:
+        </Typography>
+        <ul>
+          {visibleNames.map((name, index) => (
+              <li
+                  key={index}
+                  onClick={() => handleNameClick(name)}
+                  style={{ cursor: 'pointer' }}
+              >
+                {name}
+              </li>
+          ))}
+        </ul>
+      </div>
   );
 };
 
