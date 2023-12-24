@@ -1,16 +1,36 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
 
+const spec1 = {
+  title: "title",
+  content: "content",
+  date: "2023-11-27"
+};
 
-const TextEditor = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+const TextEditor = ({stepperData, setStepperData}) => {
+  // const [title, setTitle] = useState('');
+  // const [content, setContent] = useState('');
   const [showContent, setShowContent] = useState(false);
 
+  const [complete, setComplete] = useState({});
+
   const handleSave = () => {
-    setShowContent(true);
+    // setShowContent(true);
+    
+  
+    // Make a POST request using Axios
+    // axios.post('http://localhost:3000/', spec)
+    //   .then(response => {
+    //     // If the request is successful, setShowContent to true
+    //     console.log('Data has been sent:', response.data);
+    //   })
+    //   .catch(error => {
+    //     // Handle errors here
+    //     console.error('Error sending data:', error);
+    //   });
   };
 
   return (
@@ -21,8 +41,10 @@ const TextEditor = () => {
         minRows={3}
         fullWidth
         placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={stepperData.title}
+        onChange={(e) => {
+          setStepperData({ ...stepperData, title: e.target.value})
+          }}
         style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
         InputProps={{
           style: {
@@ -36,8 +58,10 @@ const TextEditor = () => {
         minRows={3}
         fullWidth
         placeholder="Content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
+        value={stepperData.content}
+        onChange={(e) => {
+          setStepperData({ ...stepperData, content: e.target.value})
+          }}
         style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
         InputProps={{
           style: {
@@ -46,15 +70,17 @@ const TextEditor = () => {
         }}
       />
 
-      <Button
+      {/* <Button
         variant="contained"
         color="primary"
         onClick={handleSave}
         style={{ marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
       >
         Save
-      </Button>
+      </Button> */}
 
+      
+      
       {showContent && (
         <div>
           <h1>{title}</h1>
@@ -64,5 +90,7 @@ const TextEditor = () => {
     </div>
   );
 };
+
+
 
 export default TextEditor;

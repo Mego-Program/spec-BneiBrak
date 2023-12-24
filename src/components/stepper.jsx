@@ -5,35 +5,54 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import StepBox from './StepBox';
+import axios from 'axios';
 
 const steps = ['Select campaign settings', 'Create an ad group', 'KPIs'];
 
 const customConnectorStyles = {
   '& .MuiStepConnector-lineHorizontal': {
     border: '2px solid #121231',
-    
-    
-    
-  },
+    },
 };
 
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
+  const [stepperData, setStepperData] = useState({
+     title: '',
+     content: ''
+
+  });
 
   const totalSteps = steps.length;
   const completedSteps = Object.keys(completed).length;
+  
+  // function updateStepsData(updatedData) {
+  //     const newData = {...stepperData, ...updatedData}
+  //     setStepperData(newData)
+  // }
 
   const isLastStep = () => activeStep === totalSteps - 1;
   const allStepsCompleted = () => completedSteps === totalSteps;
 
   const handleNext = () => {
+    console.log({stepperData});
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
-
+    console.log(stepperData);
     setActiveStep(newActiveStep);
+    
+    if (isLastStep()) {
+      axios.post('http://localhost:3000/spec', stepperData)
+        .then(response => {
+          console.log('Data has been sent:', response.data);
+        })
+        .catch(error => {
+          console.error('Error sending data:', error);
+        });
+    }
   };
 
   const handleBack = () => {
@@ -92,7 +111,7 @@ export default function HorizontalNonLinearStepper() {
         ))}
       </Stepper>
 
-      <StepBox active={true} step={activeStep + 1} />
+      <StepBox active={true} step={activeStep + 1} setStepperData={setStepperData} stepperData={stepperData}/>
 
       <Box
         sx={{
@@ -119,3 +138,6 @@ export default function HorizontalNonLinearStepper() {
     </Box>
   );
 }
+
+
+
