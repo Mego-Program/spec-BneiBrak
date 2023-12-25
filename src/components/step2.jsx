@@ -9,7 +9,7 @@ import {
   Button,
 } from '@mui/material';
 
-const InvisibleNamesList = () => {
+const InvisibleNamesList = ({stepperData, setStepperData}) => {
   const allNames = [
     'The Scrum Master: Finny Kaminer',
     'Shlomo Vulkan',
@@ -50,8 +50,9 @@ const InvisibleNamesList = () => {
           <FormControl fullWidth>
             <InputLabel style={{ color: '#fff' }}>Names for team selection</InputLabel>
             <Select
-              value={selectedName}
-              onChange={handleNameChange}
+            value={selectedName}
+            onChange={handleNameChange}
+            
               label="Names for team selection"
               style={{ color: '#fff' }}
             >

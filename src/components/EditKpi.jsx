@@ -5,8 +5,6 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
-
 
 export function CustomDropdown({ onSelectOption }) {
   const [selectedOption, setSelectedOption] = useState("");

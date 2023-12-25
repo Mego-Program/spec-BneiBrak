@@ -19,18 +19,13 @@ export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const [stepperData, setStepperData] = useState({
-     title: '',
-     content: ''
-
+    title: '',
+    content: '',
+    participants: [],
   });
 
   const totalSteps = steps.length;
   const completedSteps = Object.keys(completed).length;
-  
-  // function updateStepsData(updatedData) {
-  //     const newData = {...stepperData, ...updatedData}
-  //     setStepperData(newData)
-  // }
 
   const isLastStep = () => activeStep === totalSteps - 1;
   const allStepsCompleted = () => completedSteps === totalSteps;
