@@ -4,14 +4,10 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
 
 
-const TextEditor = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+const TextEditor = ({stepperData, setStepperData}) => {
   const [showContent, setShowContent] = useState(false);
 
-  const handleSave = () => {
-    setShowContent(true);
-  };
+  const [complete, setComplete] = useState({});
 
   return (
     <div>
@@ -21,8 +17,10 @@ const TextEditor = () => {
         minRows={3}
         fullWidth
         placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={stepperData.title}
+        onChange={(e) => {
+          setStepperData({ ...stepperData, title: e.target.value})
+          }}
         style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
         InputProps={{
           style: {
@@ -36,8 +34,10 @@ const TextEditor = () => {
         minRows={3}
         fullWidth
         placeholder="Content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
+        value={stepperData.content}
+        onChange={(e) => {
+          setStepperData({ ...stepperData, content: e.target.value})
+          }}
         style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
         InputProps={{
           style: {
@@ -45,24 +45,10 @@ const TextEditor = () => {
           },
         }}
       />
-
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleSave}
-        style={{ marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
-      >
-        Save
-      </Button>
-
-      {showContent && (
-        <div>
-          <h1>{title}</h1>
-          <p>{content}</p>
-        </div>
-      )}
     </div>
   );
 };
+
+
 
 export default TextEditor;
