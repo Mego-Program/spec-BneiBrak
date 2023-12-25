@@ -11,17 +11,18 @@ import {
 import AlertDialog from "./AlertDialog";
 import KpiComponent from "./KpiComponent";
 import KpiItem from "./KpiItem";
+import { v4 as uuidv4 } from 'uuid';
 
 const CreateKpi = () => {
   const [kpiItems, setKpiItems] = useState([]);
 
   const addKpiItem = () => {
-    setKpiItems([...kpiItems, {}]); // Add a new empty KPI item to the list
+    const newKpiItem = { id: uuidv4() };
+    setKpiItems([...kpiItems, newKpiItem]); // Add a new empty KPI item to the list
   };
 
-  const deleteKpiItem = (index) => {
-    const updatedKpiItems = [...kpiItems];
-    updatedKpiItems.splice(index, 1);
+  const deleteKpiItem = (id) => {
+    const updatedKpiItems = kpiItems.filter(item => item.id !== id);
     setKpiItems(updatedKpiItems);
   };
 
@@ -36,15 +37,15 @@ const CreateKpi = () => {
       {/* <KpiComponent /> */}
 
       {kpiItems.map((item, index) => (
-        <Typography>
+        <Typography key={item.id}>
          
           {/* Render each KPI item row */}
           
        
           <KpiItem
-          key={index}
-          index={index}
-          onDelete={() => deleteKpiItem(index)}
+          key={item.id}
+          index={item.id}
+          onDelete={(index) => deleteKpiItem(item.id)}
           onSave={saveKpiItems}
         />
         </Typography>

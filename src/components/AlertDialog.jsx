@@ -7,7 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-export default function AlertDialog({ onDelete, deleteKpiItem, specId }) {
+export default function AlertDialog({ onDelete, id }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -19,7 +19,7 @@ export default function AlertDialog({ onDelete, deleteKpiItem, specId }) {
   };
 
   const handleDelete = () => {
-    onDelete(specId); // Pass the specId to the onDelete function
+    onDelete(id); // Pass the specId to the onDelete function
     handleClose();
   };
 

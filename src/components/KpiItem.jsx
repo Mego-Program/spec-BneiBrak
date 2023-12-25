@@ -10,8 +10,9 @@ import {
   CustomPeriod,
 } from "./EditKpi";
 import AlertDialog from "./AlertDialog";
+import { v4 as uuidv4 } from 'uuid';
 
-const KpiItem = ({ index, onDelete, onSave, deleteKpiItem }) => {
+const KpiItem = ({ id, onDelete, onSave }) => {
   return (
     <Typography
       variant="body1"
@@ -32,7 +33,7 @@ const KpiItem = ({ index, onDelete, onSave, deleteKpiItem }) => {
       We will <InputTextLine /> <CustomDropdown /> <CustomNumberField />{" "}
       <CustomPeriod />
       <SaveButton onClick={onSave} />
-      <AlertDialog onDelete={onDelete} deleteFunction={onDelete} />
+      <AlertDialog onDelete={onDelete} id={id}/>
       {/* Include the SaveButton component */}
       
     </Typography>
