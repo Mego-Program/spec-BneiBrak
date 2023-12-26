@@ -2,14 +2,6 @@ import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Button, Box, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import {
-  InputTextLine,
-  CustomDropdown,
-  CustomNumberField,
-  CustomPeriod,
-} from "./EditKpi";
-import AlertDialog from "./AlertDialog";
-import KpiComponent from "./KpiComponent";
 import KpiItem from "./KpiItem";
 import { v4 as uuidv4 } from 'uuid';
 

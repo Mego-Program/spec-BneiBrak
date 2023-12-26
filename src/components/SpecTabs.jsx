@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Box, Typography } from "@mui/material";
 import ContentEditorComponent from "./ContentEditorComponent";
-import {
-  CustomDropdown,
-  InputTextLine,
-  CustomPeriod,
-  CustomNumberField,
-} from "./EditKpi";
-import AlertDialog from "./AlertDialog";
-import KpiComponent from "./KpiComponent";
 import CreateKpi from "./CreateKpi";
 
 const SpecTabs = ({ teamSpecs, onUpdate }) => {
