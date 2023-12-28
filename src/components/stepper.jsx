@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -6,6 +7,8 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import StepBox from './StepBox';
 import axios from 'axios';
+
+
 
 const steps = ['Select campaign settings', 'Create an ad group', 'KPIs'];
 
@@ -16,11 +19,14 @@ const customConnectorStyles = {
 };
 
 export default function HorizontalNonLinearStepper() {
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const [stepperData, setStepperData] = useState({
     title: '',
     content: '',
+    // status: "",
+    // date: '00/00/0000',
     participants: [],
   });
 
@@ -29,23 +35,21 @@ export default function HorizontalNonLinearStepper() {
 
   const isLastStep = () => activeStep === totalSteps - 1;
   const allStepsCompleted = () => completedSteps === totalSteps;
-
-  const handleNext = () => {
-    console.log({stepperData});
+  const handleNext = () => { 
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
-    console.log(stepperData);
     setActiveStep(newActiveStep);
     
     if (isLastStep()) {
       axios.post('http://localhost:3000/spec', stepperData)
         .then(response => {
           console.log('Data has been sent:', response.data);
-        })
-        .catch(error => {
+          navigate("/")
+        }) .catch(error => {
           console.error('Error sending data:', error);
+          navigate("/")
         });
     }
   };

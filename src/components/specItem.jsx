@@ -16,7 +16,7 @@ export default function SpecItem({ spec, deleteSpec }) {
 
   const handleDelete = async (idToDelete) => {
     try {
-      await axios.delete(`http://localhost:3000//${idToDelete}`);
+      await axios.delete(`http://localhost:3000/spec/${idToDelete}`);
       setDeleted(true);
       deleteSpec(idToDelete)
     } catch (error) {
