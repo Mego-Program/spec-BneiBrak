@@ -84,7 +84,7 @@ export default function SpecItem({ spec, deleteSpec }) {
                 bgcolor: '#F6C927',
               },
             }} component={Link} to={`/tabs`}>
-              <EditIcon/>
+              <EditIcon />
             </Button>
             <Button onClick={onClickDelete} variant='text' size='small' sx={{
               color: 'white',
@@ -99,7 +99,6 @@ export default function SpecItem({ spec, deleteSpec }) {
 
               '&:hover': {
                 bgcolor: '#F6C927',
-
               },
             }}>
               <DeleteIcon/>
@@ -107,12 +106,11 @@ export default function SpecItem({ spec, deleteSpec }) {
           </Grid>
           <AvatarGroup>
             {spec.participants.map((person, index) => (
-                <Avatar key={index} alt="User 1" sx={{bgcolor: "#121231", color: '#F6C927',}}>{person[0]}</Avatar>
+              <Avatar key={index} alt="User 1" sx={{ bgcolor: "#121231", color: '#F6C927', }}>{person[0]}</Avatar>
             ))}
           </AvatarGroup>
         </Grid>
       </CardContent>
-</Card>
-)
-  ;
+    </Card>
+  );
 }

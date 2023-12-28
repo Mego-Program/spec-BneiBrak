@@ -1,16 +1,12 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import {FormControl, InputLabel, Select, MenuItem, Typography, Grid,} from '@mui/material';
 import axios from 'axios';
 
 const InvisibleNamesList = ({stepperData, setStepperData}) => {
   const [allNames, setAllNames] = useState([]);
-  // const [visibleNames, setVisibleNames] = useState([]);
   const [selectedName, setSelectedName] = useState('');
 
-
   useEffect(() => {
-    // Fetch names from the backend API
     const fetchNames = async () => {
       const token = localStorage.getItem("authToken");
       console.log('token:', token)
@@ -22,24 +18,23 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
         console.error('Error fetching names:', error);
       }
     };
-
     fetchNames();
-  }, []); // Empty dependency array to ensure the effect runs only once
+  }, []);
 
   const handleNameChange = (event) => {
-    const newName = event.target.value;
-
-    // Check if the name is not already in the visible list and is not already selected
-    if (!stepperData.participants.includes(newName) && newName !== selectedName) {
-      setStepperData([...stepperData.participants, newName]);
+    const userToAdd = event.target.value;
+    console.log(stepperData);
+    if (!stepperData.participants.includes(userToAdd) && userToAdd !== selectedName) {
+      const newParticipants =  {participants: [...stepperData.participants, userToAdd]}
+      setStepperData({...stepperData, ...newParticipants});
     }
 
-    setSelectedName('');
+    setSelectedName(stepperData.participants);
   };
 
   const handleRemoveName = (nameToRemove) => {
     const updatedNames = stepperData.participants.filter((name) => name !== nameToRemove);
-    setStepperData(updatedNames);
+    setVisibleNames(updatedNames);
   };
 
   const handleNameClick = (clickedName) => {

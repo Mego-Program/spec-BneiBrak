@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 
-
 const TextEditor = ({stepperData, setStepperData}) => {
-  const [showContent, setShowContent] = useState(false);
-  const [complete, setComplete] = useState({});
-
   return (
     <div>
       <TextField
@@ -45,7 +41,5 @@ const TextEditor = ({stepperData, setStepperData}) => {
     </div>
   );
 };
-
-
 
 export default TextEditor;
