@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import {FormControl, InputLabel, Select, MenuItem, Typography, Grid,} from '@mui/material';
 import axios from 'axios';
 
-const InvisibleNamesList = () => {
+const InvisibleNamesList = ({stepperData, setStepperData}) => {
   const [allNames, setAllNames] = useState([]);
-  const [visibleNames, setVisibleNames] = useState([]);
+  // const [visibleNames, setVisibleNames] = useState([]);
   const [selectedName, setSelectedName] = useState('');
 
 
@@ -15,7 +15,7 @@ const InvisibleNamesList = () => {
       const token = localStorage.getItem("authToken");
       console.log('token:', token)
       try {
-        const response = await axios.get('http://localhost:3000/controller_functions/infraImport/infra',
+        const response = await axios.get('http://localhost:3000/spec/controller_functions/infraImport/infra',
             {headers: {'Authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
         setAllNames(response.data.data.result);
       } catch (error) {
@@ -30,16 +30,16 @@ const InvisibleNamesList = () => {
     const newName = event.target.value;
 
     // Check if the name is not already in the visible list and is not already selected
-    if (!visibleNames.includes(newName) && newName !== selectedName) {
-      setVisibleNames([...visibleNames, newName]);
+    if (!stepperData.participants.includes(newName) && newName !== selectedName) {
+      setStepperData([...stepperData.participants, newName]);
     }
 
     setSelectedName('');
   };
 
   const handleRemoveName = (nameToRemove) => {
-    const updatedNames = visibleNames.filter((name) => name !== nameToRemove);
-    setVisibleNames(updatedNames);
+    const updatedNames = stepperData.participants.filter((name) => name !== nameToRemove);
+    setStepperData(updatedNames);
   };
 
   const handleNameClick = (clickedName) => {
@@ -59,7 +59,7 @@ const InvisibleNamesList = () => {
                   style={{ color: '#fff' }}
               >
                 {allNames.map((user, index) => (
-                    !visibleNames.includes(user.firstName) && (
+                    !stepperData.participants.includes(user.firstName) && (
                         <MenuItem key={index} value={user.firstName  + ' ' + user.lastName}>
                           {user.firstName  + ' ' + user.lastName}
                         </MenuItem>
@@ -74,7 +74,7 @@ const InvisibleNamesList = () => {
           Teammates:
         </Typography>
         <ul>
-          {visibleNames.map((name, index) => (
+          {stepperData.participants.map((name, index) => (
               <li
                   key={index}
                   onClick={() => handleNameClick(name)}

@@ -26,7 +26,7 @@ const CustomTextArea = ({ teamSpecs, onChange }) => {
         placeholder="Maximum 4 rows"
         defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
       ut labore et dolore magna aliqua."
-        style={{ width: "100%", height: "300px" }}
+        style={{ width: "100%", height: "100px" }}
       />
       <Button variant="contained" color="primary" onClick={handleButtonClick}>
         Update content
