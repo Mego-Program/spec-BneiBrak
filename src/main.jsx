@@ -1,17 +1,19 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from '@mui/material/CssBaseline';
 import Routes from "./components/routes";
+import { createRoot } from "react-dom/client"
 
 
-ReactDOM.render(
-    <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Routes />
-  </ThemeProvider>,
-  document.getElementById("root")
-);
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+root.render(
+<ThemeProvider theme={theme}>
+  <CssBaseline />
+  <Routes />
+</ThemeProvider>,);
+
+
  
 

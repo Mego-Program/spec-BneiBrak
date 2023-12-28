@@ -4,11 +4,12 @@ import RocketKPIForm from './kpi';
 import InvisibleNamesList from './step2';
 import TextEditor from './step1';
 
-const StepBox = ({ active, step }) => {
+const StepBox = ({ active, step, stepperData, setStepperData }) => {
+
   const boxStyle = {
     width: '773px',
     height: '417px',
-    borderRadius: '15px',
+    borderRadius: '15px', 
     background: '#121231',
     display: active ? 'block' : 'none',
     position: 'absolute',
@@ -28,21 +29,21 @@ const StepBox = ({ active, step }) => {
     case 1:
       content = (
         <div>
-          <TextEditor />
+          <TextEditor  setStepperData={setStepperData} stepperData={stepperData} />
         </div>
       );
       break;
     case 2:
       content = (
         <div>
-          <InvisibleNamesList />
+          <InvisibleNamesList  setStepperData={setStepperData} stepperData={stepperData} />
         </div>
       );
       break;
     case 3:
       content = (
         <div>
-          <RocketKPIForm />
+          <RocketKPIForm  setStepperData={setStepperData} stepperData={stepperData} />
         </div>
       );
   }
