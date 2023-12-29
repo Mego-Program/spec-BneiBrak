@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup } from '@mui/material';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -6,35 +6,29 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
 
-export default function SpecItem({ spec, deleteSpec }) {
+export default function SpecItem({ spec }) {
   const isInProgress = spec.status === 'In progress';
   const cardBorderColor = isInProgress ? 'primary.main' : 'transparent';
   const cardOpacity = spec.status === 'Done' ? 0.5 : 1;
   const statusColor = isInProgress ? '#ffffff' : 'primary.main';
 
-  const [deleted, setDeleted] = useState(true);
 
   const handleDelete = async (idToDelete) => {
     try {
-      await axios.delete(`http://localhost:3000/spec/${idToDelete}`);
-      setDeleted(true);
-      deleteSpec(idToDelete)
+      await axios.delete(`http://localhost:3000/spec/delete/${idToDelete}`);
+      console.log('Spec deleted successfully');
     } catch (error) {
       console.error('Error deleting:', error);
     }
   };
 
   const onClickDelete = () => {
-    const idToDelete = spec._id;
-    handleDelete(idToDelete);
+    let check = prompt('Are you sure you want to delete this spec? yes or no', 'yes')
+    if (check === 'yes') {
+      handleDelete(spec._id)
+    }
   };
 
-  const getspecfunc = (id) => {
-    axios.get('http://localhost:3000/spec/:id', {params: {id: id}})
-        .then(response => {
-          console.log(response.data)
-        });
-  }
 
   return (
       <Card
@@ -52,8 +46,7 @@ export default function SpecItem({ spec, deleteSpec }) {
       >
         <CardContent
         onClick={() => {
-          console.log(spec._id)
-          getspecfunc(spec._id)
+          console.log(spec)
         }}
           >
         <Grid container>
