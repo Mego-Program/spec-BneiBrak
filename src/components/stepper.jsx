@@ -29,21 +29,21 @@ export default function HorizontalNonLinearStepper() {
     kpis: [],
   });
 
-    // TODO: in the update function simply pull the fields of the spec into the fields in stepperData and thus save the function
-    // TODO: if there is an ID then pull the stepperData fields as mentioned and if not create a new model of the SpecSchema
-    // TODO: The same should be done for the KPI within the relevant field
-        // const [kpi, setKpi] = useState({})
-    // TODO: call the port from env or another way so that it looks cleaner and it will be possible to control the port from one place
-    // TODO: Render after clicking delete
-    // TODO: Remove unnecessary lines from all code
-    // TODO: Add documentation to each relevant function
-    // TODO: complete the withdrawal from Idan and Meir
-    // TODO: keep the KPI in the stepperData variable like we did with the participants
-    // TODO: arrange the date and visibility of the pages
-    // TODO: display the spec list in reverse
+  // TODO: בפונקציה עדכון פשוט למשוך את השדות של ה-spec לתוך השדות ב-stepperData וכך לחסוך את הפונקציה
+  // TODO: אם יש ID אז למשוך כאמור את השדות stepperData ואם לא תיצור מודל חדש של ה- SpecScheama
+  // TODO: אותו דבר צריך לעשות ל-KPI בתוך השדה הרלוונטי
+    // const [kpi, setKpi] = useState({})
+  // TODO: לקורא לפורט מenvאו בדרך אחרת שיראה יותר נקי ויהיה ניתן לשלוט בפורט ממקום אחד
+  // TODO: רינדור אחרי לחציה על מחיקה
+  // TODO: מחמיקת שורות מיותרות מכל הקוד
+  // TODO: להוסיף תיעוד לכל פונקציה רלוונטית
+  // TODO: להשלים את המשיכה מעידן ומאיר
+  // TODO: להחזיק את הKPI במשתנה stepperData כמו שעשינו עם המשתתפים
+  // TODO: לסדר את התאריך והנראות של הדפים
+  // TODO: הצגת רשימת הspec ברוורס
 
     async function sendData(data/*, header={}*/) {
-        const response = await axios.post('http://localhost:3000/spec/spec', data /*, header*/);
+        const response = await axios.post('http://localhost:3000/spec/save', data /*, header*/);
         console.log('Data has been sent:', response.data);
         return response.data
     }
