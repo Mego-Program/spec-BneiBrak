@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react";
-import { Editor, EditorState, getDefaultKeyBinding, RichUtils,convertToRaw } from 'draft-js';
+import React, { useState, useRef, useEffect, } from "react";
+import { Editor, EditorState, getDefaultKeyBinding, RichUtils, convertToRaw, convertFromRaw, } from 'draft-js';
 // import './RichText.css';
 // import "./MyRichEditor";
 // import { Box, TextField, } from "@mui/material";
 import draftToHtml from 'draftjs-to-html';
-import {RichEditorRoot,RichEditorEdit,RichEditorControls, }  from "./RichTextEditor.style";
+import { RichEditorRoot, RichEditorEdit, RichEditorControls, } from "./RichTextEditor.style";
 
 // import { styled} from '@mui/material/styles';
 // const codeBlock11 =styled(TextField)`
@@ -82,9 +82,16 @@ const style = {
   // },
 }
 
-const RichTextEditor = () => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const editorRef = useRef(null);
+const RichTextEditor = ({content}) => {
+  //const contentState = convertFromRaw(rawEditorData);
+  
+  const rawEditorData = JSON.parse(content)
+  const editorContent = convertFromRaw(rawEditorData);
+
+  //const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [editorState, setEditorState] = useState(EditorState.createWithContent(editorContent));
+
+  const editorRef = useRef(null);''
 
   const focusEditor = () => {
     if (editorRef.current) {
@@ -92,15 +99,20 @@ const RichTextEditor = () => {
     }
   };
   // *********************
-  const getRawContent = () => {
-    const contentState = editorState.getCurrentContent();
-    const rawContentState = convertToRaw(contentState);
-    console.log(rawContentState);
-    // Do something with the raw content, such as storing it in state or sending it to an API
+  const saveDraftAsHTML = () => {
+    console.log("Simulating save")
+    const raw = convertToRaw(editorState.getCurrentContent())
+    const contentString = JSON.stringify(raw)
+    console.log('contentString', contentString)
+    // const html = draftToHtml(raw)
+    // console.log(html);
+    // TODO! Complete the rest
+
   };
 
+
   // ******************************
-  
+
 
   const handleKeyCommand = (command) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -112,11 +124,11 @@ const RichTextEditor = () => {
   };
 
   const mapKeyToEditorCommand = (e) => {
-    if (e.keyCode === 9 ) {
+    if (e.keyCode === 9) {
       const newEditorState = RichUtils.onTab(
         e,
         editorState,
-        4, 
+        4,
       );
       if (newEditorState !== editorState) {
         setEditorState(newEditorState);
@@ -135,17 +147,25 @@ const RichTextEditor = () => {
   };
 
   // let className = style.RichEditor_editor;
-  let className = <RichEditorEdit/>;
-  const contentState = editorState.getCurrentContent();
-  
-  console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+  let className = <RichEditorEdit />;
+
+  const contentState = editorState?.getCurrentContent();
+  // useState.saveEditorContent(contentState);
+  // useState.setState({ editorState });
+  // console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
   // console.log(contentState.);
+
   if (!contentState.hasText()) {
     if (contentState.getBlockMap().first().getType() !== 'unstyled') {
       // className = style.RichEditor_hidePlaceholder;
-      className = <RichEditorEdit/>;
+
+
+      className = <RichEditorEdit />;
     }
   }
+
+
+
 
   return (
     <RichEditorRoot>
@@ -171,13 +191,88 @@ const RichTextEditor = () => {
         />
       </div>
       {/* ********************************************* */}
-       
-    <button onClick={getRawContent}>save</button>
 
-    {/* ******************************* */}
+      <button onClick={saveDraftAsHTML}>save</button>
+
+      {/* ******************************* */}
     </RichEditorRoot>
   );
 };
+
+
+
+// // ********************************************************************
+// const DraftEditorRaw = () => {
+//   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+//   console.log("2222")
+//   const onChange = (newEditorState) => {
+//     console.log("111111")
+//     // Convert to raw js object
+
+//     const raw = convertToRaw(newEditorState.getCurrentContent());
+//     console.log("rawwwwwwwwww")
+//     // Save raw js object to local storage
+//     saveEditorContent(raw);
+//     console.log(raw)
+
+//     setEditorState(newEditorState);
+//   };
+
+//   useEffect(() => {
+//     // Load editor data (raw js object) from local storage
+//     const rawEditorData = getSavedEditorData();
+//     if (rawEditorData !== null) {
+//       const contentState = convertFromRaw(rawEditorData);
+//       setEditorState(EditorState.createWithContent(contentState));
+//     }
+//   }, []); // Empty dependency array to run this effect only once (on mount)
+
+//   const saveEditorContent = (data) => {
+//     console.log({ data })
+//     localStorage.setItem('editorData', JSON.stringify(data));
+
+//   };
+
+//   const getSavedEditorData = () => {
+//     const savedData = localStorage.getItem('editorData');
+//     return savedData ? JSON.parse(savedData) : null;
+//   };
+
+//   const handleKeyCommand = (command) => {
+//     const newState = RichUtils.handleKeyCommand(editorState, command);
+//     if (newState) {
+//       onChange(newState);
+//       return true;
+//     }
+//     return false;
+//   };
+
+//   const renderContentAsRawJs = () => {
+//     const contentState = editorState.getCurrentContent();
+//     const raw = convertToRaw(contentState);
+//     return JSON.stringify(raw, null, 2);
+//   };
+
+//   return (
+//     <div>
+//       <h4>Draft.js editor</h4>
+//       <div className="editor-container">
+//         {/* <Editor
+//           handleKeyCommand={handleKeyCommand}
+//           editorState={editorState}
+//           onChange={onChange}
+//         /> */}
+//       </div>
+//       <h4>Editor content as raw JS</h4>
+//       <pre>{renderContentAsRawJs()}</pre>
+//     </div>
+//   );
+// };
+
+
+
+// ********************************************************************
+
 
 const styleMap = {
   CODE: {
@@ -191,7 +286,7 @@ const styleMap = {
 const getBlockStyle = (block) => {
   switch (block.getType()) {
     // case 'blockquote': return style.RichEditor_blockquote;
-    case 'blockquote': return <RichEditorEdit/>;
+    case 'blockquote': return <RichEditorEdit />;
     default: return null;
   }
 };
@@ -201,7 +296,7 @@ const StyleButton = (props) => {
     e.preventDefault();
     props.onToggle(props.style);
   };
-//****** */
+  //****** */
 
   let className = style.RichEditor_styleButton;
   // let className = "RichEditor-styleButton";
@@ -258,7 +353,7 @@ const BlockStyleControls = (props) => {
           style={type.style}
         />
       )}
-    {/* </Box> */}
+      {/* </Box> */}
     </RichEditorControls>
   );
 };
@@ -285,7 +380,7 @@ const InlineStyleControls = (props) => {
           style={type.style}
         />
       )}
-    {/* </Box> */}
+      {/* </Box> */}
     </RichEditorControls>
   );
 };
