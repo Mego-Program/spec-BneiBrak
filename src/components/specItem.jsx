@@ -11,7 +11,6 @@ export default function SpecItem({ spec, deleteSpec }) {
   const cardBorderColor = isInProgress ? 'primary.main' : 'transparent';
   const cardOpacity = spec.status === 'Done' ? 0.5 : 1;
   const statusColor = isInProgress ? '#ffffff' : 'primary.main';
-
   const [deleted, setDeleted] = useState(true);
 
   const handleDelete = async (idToDelete) => {
@@ -40,7 +39,6 @@ export default function SpecItem({ spec, deleteSpec }) {
         height: '143px',
         bgcolor: "secondary.main",
         color: "white",
-
       }}
     >
       <CardContent>
@@ -67,7 +65,6 @@ export default function SpecItem({ spec, deleteSpec }) {
               borderStyle: 'solid',
               borderColor: '#F6C927',
               margin: '0 10px',
-
               '&:hover': {
                 bgcolor: '#F6C927',
               },
@@ -95,7 +92,7 @@ export default function SpecItem({ spec, deleteSpec }) {
           </Grid>
           <AvatarGroup>
             {spec.participants.map((person, index) => (
-              <Avatar key={index} alt="User 1" sx={{ bgcolor: "#121231", color: '#F6C927', }}>{person[0]}</Avatar>
+              <Avatar key={index} alt="User 1" sx={{ bgcolor: "#121231", color: '#F6C927' }}>{person[0]}</Avatar>
             ))}
           </AvatarGroup>
         </Grid>

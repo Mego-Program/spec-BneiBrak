@@ -1,9 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 const TextEditor = ({stepperData, setStepperData}) => {
-  
   return (
     <div>
       <TextField

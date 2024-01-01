@@ -15,7 +15,6 @@ function SpecList() {
       const [teamSpecs, setTeamSpecs] = useState([]);
 
       function deleteSpec(specId) {
-        // const newSpecs = [...teamSpecs]
         const newSpecs = teamSpecs.filter(spec => spec._id !== specId);
         setTeamSpecs(newSpecs)
       }
@@ -44,7 +43,7 @@ function SpecList() {
         >
           {teamSpecs.map((spec, index) => (
             <TimelineItem
-              key={spec.id}
+              key={spec._id}
               sx={{ minHeight: `${100 / teamSpecs.length - 2}%` }}
             >
               <TimelineSeparator>
@@ -105,7 +104,7 @@ function SpecList() {
             </Button>
           </Grid>
           {teamSpecs.map((spec) => (
-            <Grid key={spec.id} item xs={12}>
+            <Grid key={spec._id} item xs={12}>
               <SpecItem spec={spec} deleteSpec={deleteSpec} />
             </Grid>
           ))}

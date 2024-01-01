@@ -23,7 +23,6 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
 
   const handleNameChange = (event) => {
     const userToAdd = event.target.value;
-    console.log(stepperData);
     if (!stepperData.participants.includes(userToAdd) && userToAdd !== selectedName) {
       const newParticipants =  {participants: [...stepperData.participants, userToAdd]}
       setStepperData({...stepperData, ...newParticipants});
@@ -34,9 +33,9 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
 
   const handleRemoveName = (nameToRemove) => {
     const updatedNames = stepperData.participants.filter((name) => name !== nameToRemove);
-    setVisibleNames(updatedNames);
+    setStepperData({ ...stepperData, participants: updatedNames });
   };
-
+  
   const handleNameClick = (clickedName) => {
     handleRemoveName(clickedName);
   };
