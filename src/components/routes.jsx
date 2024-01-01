@@ -8,7 +8,7 @@ const AppRoutes = () => {
   return (
     <ReactRoutes>
       <Route path="/" element={<App />} />
-      <Route path="/stepper" element={<HorizontalNonLinearStepper />} />
+      <Route path="/stepper/*" element={<HorizontalNonLinearStepper />} />
       <Route path="/tabs" element={<SpecTabs />} />
     </ReactRoutes>
   );

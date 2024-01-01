@@ -1,28 +1,64 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import StepBox from './StepBox';
+import axios from 'axios';
+
+
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-import StepBox from './StepBox';
-import axios from 'axios';
+
 
 const steps = ['Select campaign settings', 'Create an ad group', 'KPIs'];
 
 const customConnectorStyles = {
   '& .MuiStepConnector-lineHorizontal': {
     border: '2px solid #121231',
-    },
+  },
 };
 
 export default function HorizontalNonLinearStepper() {
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const [stepperData, setStepperData] = useState({
     title: '',
     content: '',
     participants: [],
+    kpis: [],
   });
+
+  // TODO: להשלים את המשיכה מעידן ומאיר
+
+  // TODO: להחזיק את הKPI במשתנה stepperData כמו שעשינו עם המשתתפים
+  // TODO: בפונקציה עדכון פשוט למשוך את השדות של ה-spec לתוך השדות ב-stepperData וכך לחסוך את הפונקציה
+  // TODO: אם יש ID אז למשוך כאמור את השדות stepperData ואם לא תיצור מודל חדש של ה- SpecScheama
+  // TODO: אותו דבר צריך לעשות ל-KPI בתוך השדה הרלוונטי
+    // const [kpi, setKpi] = useState({})
+
+  // TODO: לקורא לפורט מenvאו בדרך אחרת שיראה יותר נקי ויהיה ניתן לשלוט בפורט ממקום אחד
+  // TODO: רינדור אחרי לחציה על מחיקה
+  // TODO: מחמיקת שורות מיותרות מכל הקוד
+  // TODO: להוסיף תיעוד לכל פונקציה רלוונטית
+
+  // TODO: לסדר את התאריך והנראות של הדפים
+  // TODO: הצגת רשימת הspec ברוורס
+
+    async function sendData(data/*, header={}*/) {
+        const response = await axios.post('http://localhost:3000/spec/save', data /*, header*/);
+        console.log('Data has been sent:', response.data);
+        return response.data
+    }
+    async function sendDataToController() {
+        await sendData(stepperData)
+    }
+    const sendDataOnClick = () => {
+        sendDataToController()
+        navigate("/")
+        setStepperData({ ...stepperData}) /*for rendering*/
+    }
 
   const totalSteps = steps.length;
   const completedSteps = Object.keys(completed).length;
@@ -31,23 +67,22 @@ export default function HorizontalNonLinearStepper() {
   const allStepsCompleted = () => completedSteps === totalSteps;
 
   const handleNext = () => {
-    console.log({stepperData});
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
-    console.log(stepperData);
     setActiveStep(newActiveStep);
-    
-    if (isLastStep()) {
-      axios.post('http://localhost:3000/spec', stepperData)
-        .then(response => {
-          console.log('Data has been sent:', response.data);
-        })
-        .catch(error => {
-          console.error('Error sending data:', error);
-        });
-    }
+
+  //   if (isLastStep()) {
+  //     axios.post('http://localhost:3000/spec/', stepperData)
+  //       .then(response => {
+  //         console.log('Data has been sent:', response.data);
+  //
+  //       }) .catch(error => {
+  //         console.error('Error sending data:', error);
+  //         navigate("/spec")
+  //       });
+  //   }
   };
 
   const handleBack = () => {
@@ -126,13 +161,11 @@ export default function HorizontalNonLinearStepper() {
             Back
           </Button>
         )}
-        <Button onClick={handleNext} sx={{ backgroundColor: '#21213E', color: 'white' }}>
+        <Button onClick={isLastStep() ? sendDataOnClick : handleNext}
+                sx={{ backgroundColor: '#21213E', color: 'white' }}>
           {isLastStep() ? 'Finish' : 'Next'}
         </Button>
       </Box>
     </Box>
   );
 }
-
-
-
