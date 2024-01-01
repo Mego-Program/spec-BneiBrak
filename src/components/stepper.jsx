@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import StepBox from './StepBox';
 import axios from 'axios';
 
+
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -29,16 +30,19 @@ export default function HorizontalNonLinearStepper() {
     kpis: [],
   });
 
+  // TODO: להשלים את המשיכה מעידן ומאיר
+
+  // TODO: להחזיק את הKPI במשתנה stepperData כמו שעשינו עם המשתתפים
   // TODO: בפונקציה עדכון פשוט למשוך את השדות של ה-spec לתוך השדות ב-stepperData וכך לחסוך את הפונקציה
   // TODO: אם יש ID אז למשוך כאמור את השדות stepperData ואם לא תיצור מודל חדש של ה- SpecScheama
   // TODO: אותו דבר צריך לעשות ל-KPI בתוך השדה הרלוונטי
     // const [kpi, setKpi] = useState({})
+
   // TODO: לקורא לפורט מenvאו בדרך אחרת שיראה יותר נקי ויהיה ניתן לשלוט בפורט ממקום אחד
   // TODO: רינדור אחרי לחציה על מחיקה
   // TODO: מחמיקת שורות מיותרות מכל הקוד
   // TODO: להוסיף תיעוד לכל פונקציה רלוונטית
-  // TODO: להשלים את המשיכה מעידן ומאיר
-  // TODO: להחזיק את הKPI במשתנה stepperData כמו שעשינו עם המשתתפים
+
   // TODO: לסדר את התאריך והנראות של הדפים
   // TODO: הצגת רשימת הspec ברוורס
 

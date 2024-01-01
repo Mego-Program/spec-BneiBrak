@@ -34,7 +34,7 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
 
   const handleRemoveName = (nameToRemove) => {
     const updatedNames = stepperData.participants.filter((name) => name !== nameToRemove);
-    setStepperData(updatedNames);
+    setStepperData({ ...stepperData, participants: updatedNames});
   };
 
   const handleNameClick = (clickedName) => {
