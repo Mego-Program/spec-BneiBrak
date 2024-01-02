@@ -1,7 +1,6 @@
 import React from 'react';
 import App from './App';
 import HorizontalNonLinearStepper from "./stepper"
-import SpecTabs from "./SpecTabs"
 import { BrowserRouter as Router, Route, Routes as ReactRoutes } from 'react-router-dom';
 
 const AppRoutes = () => {
@@ -9,7 +8,6 @@ const AppRoutes = () => {
     <ReactRoutes>
       <Route path="/" element={<App />} />
       <Route path="/stepper/*" element={<HorizontalNonLinearStepper />} />
-      <Route path="/tabs" element={<SpecTabs />} />
     </ReactRoutes>
   );
 };

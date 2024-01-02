@@ -25,10 +25,6 @@ function SpecList() {
     //     setTeamSpecs(newSpecs)
     // }
 
-    // const handleSpecClick = (specId) => {
-    //     console.log('spec id:', specId)
-    // }
-
     useEffect( () => {
         axios.get('http://localhost:3000/spec')
             .then(response => {
@@ -110,7 +106,7 @@ function SpecList() {
               </div>
             </Button>
           </Grid>
-          {teamSpecs.map((spec) => (
+          {teamSpecs.reverse().map((spec) => (
             <Grid key={spec._id} item xs={12}>
               <SpecItem spec={spec}/>
             </Grid>

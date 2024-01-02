@@ -1,24 +1,25 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup } from '@mui/material';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
 
-export default function SpecItem({ spec, teamSpecs, setTeamSpecs}) {
+
+export default function SpecItem({ spec }) {
   const isInProgress = spec.status === 'In progress';
   const cardBorderColor = isInProgress ? 'primary.main' : 'transparent';
   const cardOpacity = spec.status === 'Done' ? 0.5 : 1;
   const statusColor = isInProgress ? '#ffffff' : 'primary.main';
+  const navigate = useNavigate();
 
 
   const handleDelete = async (idToDelete) => {
     try {
       await axios.delete(`http://localhost:3000/spec/delete/${idToDelete}`);
       console.log('Spec deleted successfully');
-      // const updatedSpec = teamSpecs.filter((spec) => spec._id !== idToDelete);
-      // setTeamSpecs({updatedSpec});
     } catch (error) {
       console.error('Error deleting:', error);
     }
@@ -31,6 +32,9 @@ export default function SpecItem({ spec, teamSpecs, setTeamSpecs}) {
     }
   };
 
+  const handleEdit = () => {
+      navigate('/stepper', {state: {spec}})
+  }
 
   return (
       <Card
@@ -78,7 +82,7 @@ export default function SpecItem({ spec, teamSpecs, setTeamSpecs}) {
               '&:hover': {
                 bgcolor: '#F6C927',
               },
-            }} component={Link} to={`/tabs`}>
+            }} onClick={handleEdit}>
               <EditIcon />
             </Button>
             <Button onClick={onClickDelete} variant='text' size='small' sx={{

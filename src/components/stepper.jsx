@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import StepBox from './StepBox';
+import React, {useEffect, useState} from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 
+import StepBox from './StepBox';
 
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -19,18 +19,47 @@ const customConnectorStyles = {
   },
 };
 
-export default function HorizontalNonLinearStepper() {
+export default function HorizontalNonLinearStepper({spec=null}) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
-  const [stepperData, setStepperData] = useState({
-    title: '',
-    content: '',
-    participants: [],
-    kpis: [],
-  });
+  const [stepperData, setStepperData] = useState({title: '', content: '', participants: [], kpis: [],});
 
-  // TODO: להשלים את המשיכה מעידן ומאיר
+  useEffect(() => {
+      let data = location.state && location.state.spec ?
+          location.state.spec : stepperData
+      setStepperData(data)
+  }, [location]);
+
+
+    // if ('נשלח מידע') {
+    //
+    //     axios.post('http://localhost:3000/spec/save', stepperData)
+    //         .then(response => {
+    //             console.log('Data has been sent:', response.data);
+    //             navigate("/")
+    //             setStepperData({ ...stepperData}) /*for rendering*/
+    //         }) .catch(error => {
+    //         console.error('Error the data has not been sent:', error);
+    //         navigate("/")
+    //     });
+    // } else {}
+    // };
+    // useEffect( () => {
+    //     axios.get('http://localhost:3000/spec/newspec')
+    //         .then(response => {
+    //             console.log(response.data.newSpec)
+    //         });
+    // }, []);
+    // useEffect( () => {
+    //     axios.get('http://localhost:3000/spec/kpi')
+    //         .then(response => {
+    //             console.log(response.data.newKpi)
+    //         });
+    // }, []);
+
+  // TODO: החלק של מאיר
 
   // TODO: להחזיק את הKPI במשתנה stepperData כמו שעשינו עם המשתתפים
   // TODO: בפונקציה עדכון פשוט למשוך את השדות של ה-spec לתוך השדות ב-stepperData וכך לחסוך את הפונקציה
@@ -38,27 +67,15 @@ export default function HorizontalNonLinearStepper() {
   // TODO: אותו דבר צריך לעשות ל-KPI בתוך השדה הרלוונטי
     // const [kpi, setKpi] = useState({})
 
-  // TODO: לקורא לפורט מenvאו בדרך אחרת שיראה יותר נקי ויהיה ניתן לשלוט בפורט ממקום אחד
-  // TODO: רינדור אחרי לחציה על מחיקה
-  // TODO: מחמיקת שורות מיותרות מכל הקוד
+
+  // TODO: רינדור אחרי לחציה על מחיקה והוספה
+
+    // TODO: מחמיקת שורות מיותרות מכל הקוד
   // TODO: להוסיף תיעוד לכל פונקציה רלוונטית
 
-  // TODO: לסדר את התאריך והנראות של הדפים
-  // TODO: הצגת רשימת הspec ברוורס
+  // TODO: לסדר את שמירת הusers
+  // TODO: לקורא לפורט מenvאו בדרך אחרת שיראה יותר נקי ויהיה ניתן לשלוט בפורט ממקום אחד
 
-    async function sendData(data/*, header={}*/) {
-        const response = await axios.post('http://localhost:3000/spec/save', data /*, header*/);
-        console.log('Data has been sent:', response.data);
-        return response.data
-    }
-    async function sendDataToController() {
-        await sendData(stepperData)
-    }
-    const sendDataOnClick = () => {
-        sendDataToController()
-        navigate("/")
-        setStepperData({ ...stepperData}) /*for rendering*/
-    }
 
   const totalSteps = steps.length;
   const completedSteps = Object.keys(completed).length;
@@ -68,21 +85,22 @@ export default function HorizontalNonLinearStepper() {
 
   const handleNext = () => {
     const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
+      isLastStep() && !allStepsCompleted() ?
+          steps.findIndex((step, i) => !(i in completed)) : activeStep + 1;
     setActiveStep(newActiveStep);
 
-  //   if (isLastStep()) {
-  //     axios.post('http://localhost:3000/spec/', stepperData)
-  //       .then(response => {
-  //         console.log('Data has been sent:', response.data);
-  //
-  //       }) .catch(error => {
-  //         console.error('Error sending data:', error);
-  //         navigate("/spec")
-  //       });
-  //   }
+    if (isLastStep()) {
+      axios.post('http://localhost:3000/spec/save', stepperData)
+        .then(response => {
+          console.log('Data has been sent:', response.data);
+            navigate("/")
+            setStepperData({ ...stepperData}) /*for rendering*/
+        }) .catch(error => {
+          console.error('Error the data has not been sent:', error);
+          navigate("/")
+        });
+    }
+
   };
 
   const handleBack = () => {
@@ -161,7 +179,7 @@ export default function HorizontalNonLinearStepper() {
             Back
           </Button>
         )}
-        <Button onClick={isLastStep() ? sendDataOnClick : handleNext}
+        <Button onClick={handleNext}
                 sx={{ backgroundColor: '#21213E', color: 'white' }}>
           {isLastStep() ? 'Finish' : 'Next'}
         </Button>
