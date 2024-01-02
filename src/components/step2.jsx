@@ -11,9 +11,8 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
       const token = localStorage.getItem("authToken");
       // console.log('token:', token)
       try {
-        const response = await axios.get('http://localhost:3000/spec/infraImport/allUsers',
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/infraImport/allUsers`,
             {headers: {'Authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
-        console.log(response.data.data.result)
         setAllNames(response.data.data.result);
       } catch (error) {
         console.error('Error fetching names:', error);
@@ -28,7 +27,6 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
       const newParticipants =  {participants: [...stepperData.participants, userToAdd]}
       setStepperData({...stepperData, ...newParticipants});
     }
-
     setSelectedName(stepperData.participants);
   };
 
@@ -54,7 +52,7 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
                   style={{ color: '#fff' }}
               >
                 {allNames.map((user, index) => (
-                    !stepperData.participants.includes(user.firstName) && (
+                    !stepperData.participants.includes(user) && (
                         <MenuItem key={index} value={user.firstName  + ' ' + user.lastName}>
                           {user.firstName  + ' ' + user.lastName}
                         </MenuItem>

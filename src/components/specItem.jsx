@@ -33,7 +33,7 @@ export default function SpecItem({ spec }) {
   };
 
   const handleEdit = () => {
-      navigate('/stepper', {state: {spec}})
+    navigate('/stepper', {state: {spec}})
   }
 
   return (

@@ -13,9 +13,6 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 
-// import {backendPort, frontendPort} from "../../../spec-bb-backend/services/port.js";
-
-
 
 function SpecList() {
     const [teamSpecs, setTeamSpecs] = useState([]);
@@ -26,7 +23,7 @@ function SpecList() {
     // }
 
     useEffect( () => {
-        axios.get('http://localhost:3000/spec')
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}`)
             .then(response => {
                 setTeamSpecs(response.data.allSpecsList).catch(error => console.error(error))
             });

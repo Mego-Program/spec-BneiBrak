@@ -19,54 +19,26 @@ const customConnectorStyles = {
   },
 };
 
-export default function HorizontalNonLinearStepper({spec=null}) {
+export default function HorizontalNonLinearStepper() {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const [stepperData, setStepperData] = useState({title: '', content: '', participants: [], kpis: [],});
+  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
-      let data = location.state && location.state.spec ?
+      const booleanFlag = location.state && location.state.spec
+      let data = booleanFlag ?
           location.state.spec : stepperData
       setStepperData(data)
+      setFlag(booleanFlag)
   }, [location]);
-
-
-    // if ('נשלח מידע') {
-    //
-    //     axios.post('http://localhost:3000/spec/save', stepperData)
-    //         .then(response => {
-    //             console.log('Data has been sent:', response.data);
-    //             navigate("/")
-    //             setStepperData({ ...stepperData}) /*for rendering*/
-    //         }) .catch(error => {
-    //         console.error('Error the data has not been sent:', error);
-    //         navigate("/")
-    //     });
-    // } else {}
-    // };
-    // useEffect( () => {
-    //     axios.get('http://localhost:3000/spec/newspec')
-    //         .then(response => {
-    //             console.log(response.data.newSpec)
-    //         });
-    // }, []);
-    // useEffect( () => {
-    //     axios.get('http://localhost:3000/spec/kpi')
-    //         .then(response => {
-    //             console.log(response.data.newKpi)
-    //         });
-    // }, []);
 
   // TODO: החלק של מאיר
 
   // TODO: להחזיק את הKPI במשתנה stepperData כמו שעשינו עם המשתתפים
-  // TODO: בפונקציה עדכון פשוט למשוך את השדות של ה-spec לתוך השדות ב-stepperData וכך לחסוך את הפונקציה
-  // TODO: אם יש ID אז למשוך כאמור את השדות stepperData ואם לא תיצור מודל חדש של ה- SpecScheama
   // TODO: אותו דבר צריך לעשות ל-KPI בתוך השדה הרלוונטי
-    // const [kpi, setKpi] = useState({})
-
 
   // TODO: רינדור אחרי לחציה על מחיקה והוספה
 
@@ -74,7 +46,6 @@ export default function HorizontalNonLinearStepper({spec=null}) {
   // TODO: להוסיף תיעוד לכל פונקציה רלוונטית
 
   // TODO: לסדר את שמירת הusers
-  // TODO: לקורא לפורט מenvאו בדרך אחרת שיראה יותר נקי ויהיה ניתן לשלוט בפורט ממקום אחד
 
 
   const totalSteps = steps.length;
@@ -90,7 +61,10 @@ export default function HorizontalNonLinearStepper({spec=null}) {
     setActiveStep(newActiveStep);
 
     if (isLastStep()) {
-      axios.post('http://localhost:3000/spec/save', stepperData)
+        let url = `${import.meta.env.VITE_BACKEND_URL}`
+        url = flag ? url + `/update` : url + '/save'
+
+        axios.post(url, stepperData)
         .then(response => {
           console.log('Data has been sent:', response.data);
             navigate("/")
