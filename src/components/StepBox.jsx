@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import RocketKPIForm from './kpi';
+import CreateKpi1 from './kpi';
 import InvisibleNamesList from './step2';
 import TextEditor from './step1';
 
@@ -43,7 +43,7 @@ const StepBox = ({ active, step, stepperData, setStepperData }) => {
     case 3:
       content = (
         <div>
-          <RocketKPIForm  setStepperData={setStepperData} stepperData={stepperData} />
+          <CreateKpi1 setStepperData={setStepperData} stepperData={stepperData} />
         </div>
       );
   }

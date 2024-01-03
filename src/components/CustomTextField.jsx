@@ -28,7 +28,8 @@ const CustomTextField = ({ teamSpecs }) => {
         margin="normal"
         InputProps={{
             style: {
-              backgroundColor: 'white',
+              backgroundColor: '#34344E',
+              color: 'white'
             },
           }}
     

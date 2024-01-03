@@ -9,17 +9,18 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
   useEffect(() => {
     const fetchNames = async () => {
       const token = localStorage.getItem("authToken");
-      console.log('token:', token)
+      // console.log('token:', token)
       try {
-        const response = await axios.get('http://localhost:3000/controller_functions/infraImport/infra',
+        const response = await axios.get('http://localhost:3000/spec/infraImport/allUsers',
             {headers: {'Authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
+        console.log(response.data.data.result)
         setAllNames(response.data.data.result);
       } catch (error) {
         console.error('Error fetching names:', error);
       }
     };
     fetchNames();
-  }, []); 
+  }, []);
 
   const handleNameChange = (event) => {
     const userToAdd = event.target.value;
@@ -33,7 +34,7 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
 
   const handleRemoveName = (nameToRemove) => {
     const updatedNames = stepperData.participants.filter((name) => name !== nameToRemove);
-    setStepperData({ ...stepperData, participants: updatedNames });
+    setStepperData({ ...stepperData, participants: updatedNames});
   };
   
   const handleNameClick = (clickedName) => {

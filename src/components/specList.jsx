@@ -1,6 +1,10 @@
 import React, { useState, useEffect} from 'react';
-import { Grid, Button, Typography } from '@mui/material';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
+
 import SpecItem from './specItem';
+
+import { Grid, Button, Typography } from '@mui/material';
 import AddBox from '@mui/icons-material/AddBox';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
@@ -8,26 +12,29 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+
+// import {backendPort, frontendPort} from "../../../spec-bb-backend/services/port.js";
+
+
 
 function SpecList() {
-      const [teamSpecs, setTeamSpecs] = useState([]);
+    const [teamSpecs, setTeamSpecs] = useState([]);
 
       function deleteSpec(specId) {
         const newSpecs = teamSpecs.filter(spec => spec._id !== specId);
         setTeamSpecs(newSpecs)
       }
 
-      useEffect(() => {
-        axios.get("http://localhost:3000/spec")
-        .then(response => {
-            setTeamSpecs(response.data);
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
-      }, []);
+    // const handleSpecClick = (specId) => {
+    //     console.log('spec id:', specId)
+    // }
+
+    useEffect( () => {
+        axios.get('http://localhost:3000/spec')
+            .then(response => {
+                setTeamSpecs(response.data.allSpecsList).catch(error => console.error(error))
+            });
+    }, []);
 
   return (
     <Grid container spacing={2}>
