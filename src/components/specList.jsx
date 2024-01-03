@@ -1,9 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-
 import SpecItem from './specItem';
-
 import { Grid, Button, Typography } from '@mui/material';
 import AddBox from '@mui/icons-material/AddBox';
 import Timeline from '@mui/lab/Timeline';
@@ -12,7 +10,6 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
-
 // import {backendPort, frontendPort} from "../../../spec-bb-backend/services/port.js";
 
 
@@ -20,17 +17,21 @@ import TimelineDot from '@mui/lab/TimelineDot';
 function SpecList() {
     const [teamSpecs, setTeamSpecs] = useState([]);
 
-    // function deleteSpec(specId) {
-    //     const newSpecs = teamSpecs.filter(spec => spec._id !== specId);
-    //     setTeamSpecs(newSpecs)
-    // }
+    function deleteSpec(specId) {
+        const newSpecs = teamSpecs.filter(spec => spec._id !== specId);
+        setTeamSpecs(newSpecs)
+    }
 
-    useEffect( () => {
-        axios.get('http://localhost:3000/spec')
-            .then(response => {
-                setTeamSpecs(response.data.allSpecsList).catch(error => console.error(error))
-            });
+    useEffect(() => {
+      axios.get('http://localhost:3000/spec')
+        .then(response => {
+          setTeamSpecs(response.data.allSpecsList);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }, []);
+    
 
   return (
     <Grid container spacing={2}>
@@ -108,7 +109,7 @@ function SpecList() {
           </Grid>
           {teamSpecs.reverse().map((spec) => (
             <Grid key={spec._id} item xs={12}>
-              <SpecItem spec={spec}/>
+              <SpecItem spec={spec} deleteSpec={deleteSpec}/>
             </Grid>
           ))}
         </Grid>

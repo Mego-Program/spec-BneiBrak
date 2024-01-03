@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Button, Box, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-
 import KpiItem1 from "./KpiItem1";
 import { v4 as uuidv4 } from 'uuid';
 
-const CreateKpi1 = () => {
-  const [kpiItems, setKpiItems] = useState([]);
 
+const CreateKpi1 = ({stepperData, setStepperData}) => {
+  const [kpiItems, setKpiItems] = useState([]);
+  const [kpiData, setKpiData] = useState({
+    mission: "",
+    option: "", 
+    date: "" || 0,
+  });
   const addKpiItem = () => {
     const newKpiItem = { id: uuidv4() };
     setKpiItems([...kpiItems, newKpiItem]); // Add a new empty KPI item to the list
@@ -35,12 +39,15 @@ const CreateKpi1 = () => {
           index={item.id}
           onDelete={(index) => deleteKpiItem(item.id)}
           onSave={saveKpiItems}
+          // onChange={}
         />
         </Typography>
       ))}
 
       <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: 2 }}>
-        <IconButton color="primary" onClick={addKpiItem}>
+        <IconButton 
+        color="primary" 
+        onClick={addKpiItem}>
           <AddIcon />
         </IconButton>
       </Box>
