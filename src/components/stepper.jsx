@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 
@@ -19,13 +19,18 @@ const customConnectorStyles = {
   },
 };
 
+const SpecContext = createContext()
+
 export default function HorizontalNonLinearStepper() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [stepperData, setStepperData] = useState({title: '', content: '', participants: [], kpis: [],});
+
+  // flags:
+  const [flag, setFlag] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
-  const [stepperData, setStepperData] = useState({title: '', content: '', participants: [], kpis: [],});
-  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
       const booleanFlag = location.state && location.state.spec
@@ -37,7 +42,6 @@ export default function HorizontalNonLinearStepper() {
 
   // TODO: החלק של מאיר
 
-  // TODO: להחזיק את הKPI במשתנה stepperData כמו שעשינו עם המשתתפים
   // TODO: אותו דבר צריך לעשות ל-KPI בתוך השדה הרלוונטי
 
   // TODO: רינדור אחרי לחציה על מחיקה והוספה
@@ -81,19 +85,18 @@ export default function HorizontalNonLinearStepper() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleStep = (step) => () => {
-    setActiveStep(step);
-  };
+  const handleStep = (step) => () => setActiveStep(step);
 
-  const handleComplete = () => {
-    setCompleted((prevCompleted) => ({
-      ...prevCompleted,
-      [activeStep]: true,
-    }));
-    handleNext();
-  };
+  // const handleComplete = () => {
+  //   setCompleted((prevCompleted) => ({
+  //     ...prevCompleted,
+  //     [activeStep]: true,
+  //   }));
+  //   handleNext();
+  // };
 
   return (
+  <SpecContext.Provider value={stepperData}>
     <Box sx={{ width: '50%', margin: '0 auto', marginTop: '3%' }}>
       <Stepper
         activeStep={activeStep}
@@ -133,7 +136,10 @@ export default function HorizontalNonLinearStepper() {
         ))}
       </Stepper>
 
-      <StepBox active={true} step={activeStep + 1} setStepperData={setStepperData} stepperData={stepperData}/>
+      <StepBox active={true} step={activeStep + 1}
+               setStepperData={setStepperData} stepperData={stepperData}
+               // kpiList={kpiList} setKpiList={setKpiList}
+      />
 
       <Box
         sx={{
@@ -159,5 +165,6 @@ export default function HorizontalNonLinearStepper() {
         </Button>
       </Box>
     </Box>
+  </SpecContext.Provider>
   );
 }

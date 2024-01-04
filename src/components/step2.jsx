@@ -53,7 +53,7 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
               >
                 {allNames.map((user, index) => (
                     !stepperData.participants.includes(user) && (
-                        <MenuItem key={index} value={user.firstName  + ' ' + user.lastName}>
+                        <MenuItem key={index} value={user.firstName  + ' ' + user.lastName} >
                           {user.firstName  + ' ' + user.lastName}
                         </MenuItem>
                     )

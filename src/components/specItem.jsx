@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {useNavigate} from "react-router-dom";
-import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup } from '@mui/material';
-// import { Link } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
+import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 
-export default function SpecItem({ spec }) {
+export default function SpecItem({ spec, deleteSpec}) {
   const isInProgress = spec.status === 'In progress';
   const cardBorderColor = isInProgress ? 'primary.main' : 'transparent';
   const cardOpacity = spec.status === 'Done' ? 0.5 : 1;
   const statusColor = isInProgress ? '#ffffff' : 'primary.main';
   const navigate = useNavigate();
-
+  const idToDelete = spec._id;
+  const [deleted, setDeleted] = useState(true);
 
   const handleDelete = async (idToDelete) => {
     try {
-      await axios.delete(`http://localhost:3000/spec/delete/${idToDelete}`);
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/delete/${idToDelete}`);
       console.log('Spec deleted successfully');
+      setDeleted(true);
+      deleteSpec(idToDelete)
     } catch (error) {
       console.error('Error deleting:', error);
     }

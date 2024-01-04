@@ -17,16 +17,16 @@ import TimelineDot from '@mui/lab/TimelineDot';
 function SpecList() {
     const [teamSpecs, setTeamSpecs] = useState([]);
 
-    // function deleteSpec(specId) {
-    //     const newSpecs = teamSpecs.filter(spec => spec._id !== specId);
-    //     setTeamSpecs(newSpecs)
-    // }
+    function deleteSpec(specId) {
+        const newSpecs = teamSpecs.filter(spec => spec._id !== specId);
+        setTeamSpecs(newSpecs)
+    }
 
     useEffect( () => {
         axios.get(`${import.meta.env.VITE_BACKEND_URL}`)
             .then(response => {
                 setTeamSpecs(response.data.allSpecsList).catch(error => console.error(error))
-            });
+            }).catch(error => {console.error(error)});
     }, []);
 
   return (
@@ -105,7 +105,7 @@ function SpecList() {
           </Grid>
           {teamSpecs.reverse().map((spec) => (
             <Grid key={spec._id} item xs={12}>
-              <SpecItem spec={spec}/>
+              <SpecItem spec={spec} deleteSpec={deleteSpec}/>
             </Grid>
           ))}
         </Grid>

@@ -6,12 +6,15 @@ import InputLabel from "@mui/material/InputLabel";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-export function CustomDropdown({ onSelectOption }) {
-  const [selectedOption, setSelectedOption] = useState("");
+
+export function CustomDropdown({ setKpiList, kpiList, id }) {
+    const [kpi, setKpi] = useState(kpiList.find(item => item._id === id));
+    setKpiList(kpiList.filter(item => item._id !== id));
+
 
   const handleChange = (event) => {
-    setSelectedOption(event.target.value);
-    onSelectOption(event.target.value);
+      setKpi({ ...kpi, option: event.target.value});
+      setKpiList([ ...kpiList, kpi]);
   };
 
   return (
@@ -23,13 +26,13 @@ export function CustomDropdown({ onSelectOption }) {
           "& .MuiOutlinedInput-notchedOutline": { border: "none" },
         }}
       >
-        <InputLabel id="select-label" style={{ color: "white" }}>
+        <InputLabel id="select-label" style={{ color: "white"}}>
           Select-Option
         </InputLabel>
         <Select
           labelId="select-label"
           id="select"
-          value={selectedOption}
+          value={kpi.option}
           onChange={handleChange}
           label="Select Option"
           style={{ color: "white" }}
@@ -58,7 +61,7 @@ export function InputTextLine({ onTextChange }) {
     <Box
       component="form"
       sx={{
-        "& > :not(style)": { m: 1, width: "25ch" },
+        "& > :not(style)": { m: 1, width: "17ch" },
         "& .MuiInputBase-root": { borderBottom: "1px solid white" },
       }}
       noValidate

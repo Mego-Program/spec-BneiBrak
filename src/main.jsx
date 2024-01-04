@@ -14,6 +14,3 @@ root.render(
   <Routes />
 </ThemeProvider>,);
 
-
- 
-
