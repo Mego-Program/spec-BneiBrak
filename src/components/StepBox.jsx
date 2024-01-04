@@ -6,7 +6,6 @@ import TextEditor from './step1';
 import CreateKpi from "./step3.jsx";
 
 
-// kpiList, setKpiList
 const StepBox = ({ active, step, stepperData, setStepperData}) => {
 
   const boxStyle = {
@@ -46,10 +45,7 @@ const StepBox = ({ active, step, stepperData, setStepperData}) => {
     case 3:
       content = (
         <div>
-          <CreateKpi
-              setStepperData={setStepperData} stepperData={stepperData}
-              // kpiList={kpiList} setKpiList={setKpiList}
-              />
+          <CreateKpi setStepperData={setStepperData} stepperData={stepperData} />
         </div>
       );
   }

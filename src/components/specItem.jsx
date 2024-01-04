@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from 'axios';
 
@@ -7,20 +7,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 
-export default function SpecItem({ spec, deleteSpec}) {
-  const isInProgress = spec.status === 'In progress';
-  const cardBorderColor = isInProgress ? 'primary.main' : 'transparent';
+export default function SpecItem({ spec, deleteSpec, editStatus }) {
+  const isInProcess = spec.status === 'In process';
+  const cardBorderColor = isInProcess ? 'primary.main' : 'transparent';
+  const statusColor = isInProcess ? '#ffffff' : 'primary.main';
   const cardOpacity = spec.status === 'Done' ? 0.5 : 1;
-  const statusColor = isInProgress ? '#ffffff' : 'primary.main';
   const navigate = useNavigate();
-  const idToDelete = spec._id;
-  const [deleted, setDeleted] = useState(true);
 
   const handleDelete = async (idToDelete) => {
     try {
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/delete/${idToDelete}`);
       console.log('Spec deleted successfully');
-      setDeleted(true);
       deleteSpec(idToDelete)
     } catch (error) {
       console.error('Error deleting:', error);
@@ -38,6 +35,16 @@ export default function SpecItem({ spec, deleteSpec}) {
     navigate('/stepper', {state: {spec}})
   }
 
+  const handleEditStatus = async (specId, status) => {
+    try {
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/status/${specId}`);
+      console.log('Spec updated status successfully');
+      editStatus(specId, status)
+    } catch (error) {
+      console.error('Error updating:', error);
+    }
+  }
+
   return (
       <Card
           sx={{
@@ -49,7 +56,6 @@ export default function SpecItem({ spec, deleteSpec}) {
             height: '143px',
             bgcolor: "secondary.main",
             color: "white",
-
           }}
       >
         <CardContent

@@ -4,14 +4,13 @@ import { Box, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 import KpiItem from "./KpiItem.jsx";
-import axios from "axios";
-import {render} from "react-dom";
 
 const CreateKpi = ({ stepperData, setStepperData }) => {
     const [kpiList, setKpiList] = useState(stepperData.kpis);
 
-    const addKpiItem = () => {
-        setKpiList([...kpiList, {_id: `${Date.now()}`, description:'', status: 'Todo', option: '', days: 0, period: 'Days'}]);
+    const addKpiItem = async () => {
+        setKpiList([...kpiList,
+            {_id: `${Date.now()}`, description:'', status: 'Todo', option: '', days: 0, period: 'Days'}]);
     }
 
     const deleteKpiItem = (id) => {

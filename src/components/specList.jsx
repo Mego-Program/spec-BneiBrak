@@ -22,6 +22,11 @@ function SpecList() {
         setTeamSpecs(newSpecs)
     }
 
+    function editStatus(specId, status) {
+        const newSpecs = teamSpecs.find(spec => spec._id === specId ? {...spec, status: status} : spec);
+        setTeamSpecs(newSpecs)
+    }
+
     useEffect( () => {
         axios.get(`${import.meta.env.VITE_BACKEND_URL}`)
             .then(response => {
@@ -105,7 +110,7 @@ function SpecList() {
           </Grid>
           {teamSpecs.reverse().map((spec) => (
             <Grid key={spec._id} item xs={12}>
-              <SpecItem spec={spec} deleteSpec={deleteSpec}/>
+              <SpecItem spec={spec} deleteSpec={deleteSpec} editStatus={editStatus}/>
             </Grid>
           ))}
         </Grid>
