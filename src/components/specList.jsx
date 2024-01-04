@@ -10,8 +10,6 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
-// import {backendPort, frontendPort} from "../../../spec-bb-backend/services/port.js";
-
 
 
 function SpecList() {
@@ -32,8 +30,7 @@ function SpecList() {
         });
     }, []);
     
-
-  return (
+   return (
     <Grid container spacing={2}>
       <Grid item xs={1}>
         <Timeline
@@ -87,8 +84,7 @@ function SpecList() {
                 marginLeft: "10px",
                 display: "flex",
                 marginTop: "20px",
-              }}
-            >
+              }} >          
               <Typography variant="button" sx={{ color: 'secondary.main' }}>
                 Add a new spec
               </Typography>
@@ -101,8 +97,7 @@ function SpecList() {
                   alignItems: "center",
                   scale: "1.5",
                   height: "100%",
-                }}
-              >
+                 }} >
                 <AddBox sx={{ height: "55px" }} />
               </div>
             </Button>

@@ -17,16 +17,6 @@ export default function SpecItem({ spec, deleteSpec }) {
   const idToDelete = spec._id;
   const [deleted, setDeleted] = useState(true);  
   
-  //   try {
-  //     await axios.delete(`http://localhost:3000/spec/delete/${idToDelete}`);
-  //     console.log('Spec deleted successfully');
-  //   } catch (error) {
-  //     console.error('Error deleting:', error);
-  //   }
-  // };
-
-  
-
   const handleDelete = async (idToDelete) => {
     try {
       await axios.delete(`http://localhost:3000/spec/delete/${idToDelete}`);
@@ -36,7 +26,6 @@ export default function SpecItem({ spec, deleteSpec }) {
       console.error('Error deleting:', error);
     }
   };
-
 
   const onClickDelete = () => {
     let check = prompt('Are you sure you want to delete this spec? yes or no', 'yes')
@@ -61,13 +50,13 @@ export default function SpecItem({ spec, deleteSpec }) {
             bgcolor: "secondary.main",
             color: "white",
 
-          }}
-      >
+          }} >
+      
         <CardContent
         onClick={() => {
           console.log(spec)
-        }}
-          >
+        }} >
+          
         <Grid container>
           <Grid item xs={12}>
             <Typography sx={{fontSize: '25px',}}>{spec.title}</Typography>
@@ -91,14 +80,17 @@ export default function SpecItem({ spec, deleteSpec }) {
               borderStyle: 'solid',
               borderColor: '#F6C927',
               margin: '0 10px',
-
               '&:hover': {
                 bgcolor: '#F6C927',
               },
             }} onClick={handleEdit}>
               <EditIcon />
             </Button>
-            <Button onClick={onClickDelete} variant='text' size='small' sx={{
+            <Button 
+            onClick={onClickDelete} 
+            variant='text' 
+            size='small' 
+            sx={{
               color: 'white',
               height: '53',
               width: '53',
@@ -108,8 +100,7 @@ export default function SpecItem({ spec, deleteSpec }) {
               borderStyle: 'solid',
               borderColor: '#F6C927',
               margin: '0 10px',
-
-              '&:hover': {
+               '&:hover': {
                 bgcolor: '#F6C927',
               },
             }}>
@@ -122,7 +113,6 @@ export default function SpecItem({ spec, deleteSpec }) {
             ))}
           </AvatarGroup>
         </Grid>
-        {/* <SpecItem spec={spec} deleteSpec={deleteSpec} /> */}
       </CardContent>
     </Card>
   );
