@@ -1,8 +1,8 @@
 import React from "react";
-import theme from "./theme";
+import theme from "./theme.js";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from '@mui/material/CssBaseline';
-import Routes from "./components/routes";
+import Routes from "./routes.jsx";
 import { createRoot } from "react-dom/client"
 
 

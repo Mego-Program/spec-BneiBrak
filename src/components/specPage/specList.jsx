@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
-import SpecItem from './specItem';
+import SpecItem from './specItem.jsx';
 
 import { Grid, Button, Typography } from '@mui/material';
 import AddBox from '@mui/icons-material/AddBox';

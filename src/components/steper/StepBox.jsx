@@ -1,9 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 
-import InvisibleNamesList from './step2';
-import TextEditor from './step1';
-import CreateKpi from "./step3.jsx";
+import InvisibleNamesList from './step2.jsx';
+import TextEditor from './step1/step1.jsx';
+import CreateKpi from "./step3/step3.jsx";
 
 
 const StepBox = ({ active, step, stepperData, setStepperData}) => {

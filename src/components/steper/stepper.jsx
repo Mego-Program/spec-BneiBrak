@@ -1,8 +1,8 @@
-import React, {createContext, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 
-import StepBox from './StepBox';
+import StepBox from './StepBox.jsx';
 
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -19,7 +19,6 @@ const customConnectorStyles = {
   },
 };
 
-const SpecContext = createContext()
 
 export default function HorizontalNonLinearStepper() {
   const navigate = useNavigate();
@@ -92,7 +91,6 @@ export default function HorizontalNonLinearStepper() {
   // };
 
   return (
-  <SpecContext.Provider value={stepperData}>
     <Box sx={{ width: '50%', margin: '0 auto', marginTop: '3%' }}>
       <Stepper
         activeStep={activeStep}
@@ -134,7 +132,6 @@ export default function HorizontalNonLinearStepper() {
 
       <StepBox active={true} step={activeStep + 1}
                setStepperData={setStepperData} stepperData={stepperData}
-               // kpiList={kpiList} setKpiList={setKpiList}
       />
 
       <Box
@@ -161,6 +158,5 @@ export default function HorizontalNonLinearStepper() {
         </Button>
       </Box>
     </Box>
-  </SpecContext.Provider>
   );
 }

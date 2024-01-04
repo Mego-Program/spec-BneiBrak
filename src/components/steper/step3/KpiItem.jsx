@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 
 import {InputTextLine, CustomDropdown, CustomNumberField, CustomPeriod,} from "./KpiEditor.jsx";
-import AlertDialog from "./AlertDialog";
+import AlertDialog from "./AlertDialog.jsx";
 
 
 const KpiItem = ({onDelete, id, kpiList, setKpiList}) => {

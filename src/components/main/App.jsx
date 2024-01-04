@@ -1,5 +1,5 @@
 import React from 'react';
-import SpecList from './specList';
+import SpecList from '../specPage/specList.jsx';
 import { Container } from '@mui/material';
 
 

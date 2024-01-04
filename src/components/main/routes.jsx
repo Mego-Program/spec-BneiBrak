@@ -1,6 +1,6 @@
 import React from 'react';
-import App from './App';
-import HorizontalNonLinearStepper from "./stepper"
+import App from './App.jsx';
+import HorizontalNonLinearStepper from "../steper/stepper.jsx"
 import { BrowserRouter as Router, Route, Routes as ReactRoutes } from 'react-router-dom';
 
 const AppRoutes = () => {
