@@ -1,7 +1,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 
-import {InputTextLine, CustomDropdown, CustomNumberField, CustomPeriod,} from "./EditKpi1";
+import {InputTextLine, CustomDropdown, CustomNumberField, CustomPeriod,} from "./KpiEditor.jsx";
 import AlertDialog from "./AlertDialog";
 
 
@@ -25,7 +25,7 @@ const KpiItem = ({onDelete, id, kpiList, setKpiList}) => {
       We will <InputTextLine kpiList={kpiList} setKpiList={setKpiList} id={id}/>
         <CustomDropdown  kpiList={kpiList} setKpiList={setKpiList} id={id}/>
         <CustomNumberField kpiList={kpiList} setKpiList={setKpiList} id={id}/>{" "}
-      <CustomPeriod />
+      <CustomPeriod kpiList={kpiList} setKpiList={setKpiList} id={id}/>
       <AlertDialog onDelete={onDelete} id={id}/>
     </Typography>
   );

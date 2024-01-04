@@ -11,7 +11,7 @@ const CreateKpi = ({ stepperData, setStepperData }) => {
     const [kpiList, setKpiList] = useState(stepperData.kpis);
 
     const addKpiItem = () => {
-        setKpiList([...kpiList, {_id: `${Date.now()}`, description:'', status: 'Todo', option: 'with in', days: 0}]);
+        setKpiList([...kpiList, {_id: `${Date.now()}`, description:'', status: 'Todo', option: '', days: 0, period: 'Days'}]);
     }
 
     const deleteKpiItem = (id) => {
