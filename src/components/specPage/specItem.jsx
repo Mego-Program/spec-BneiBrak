@@ -7,6 +7,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 
+/**
+ * Component to display a single specification item.
+ * @component
+ * @param {Object} props - The properties passed from specList to the component.
+ * @param {Object} props.spec - The specification object to be displayed.
+ * @param {Function} props.deleteSpec - Callback function to delete a spec from the page.
+ * @param {Function} props.editStatus - Callback function to edit the status of a spec in the page.
+ * @returns {JSX.Element} - The rendered component.
+ */
 export default function SpecItem({ spec, deleteSpec, editStatus }) {
   const isInProcess = spec.status === 'In process';
   const cardBorderColor = isInProcess ? 'primary.main' : 'transparent';
@@ -14,6 +23,11 @@ export default function SpecItem({ spec, deleteSpec, editStatus }) {
   const cardOpacity = spec.status === 'Done' ? 0.5 : 1;
   const navigate = useNavigate();
 
+  /**
+   *  Delete a spec from the Database.
+   * @async
+   * @param {string} idToDelete - The ID of the spec that needs to be deleted.
+   */
   const handleDelete = async (idToDelete) => {
     try {
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/delete/${idToDelete}`);
@@ -24,6 +38,9 @@ export default function SpecItem({ spec, deleteSpec, editStatus }) {
     }
   };
 
+  /**
+   * The functionality of the delete button
+   * */
   const onClickDelete = () => {
     let check = prompt('Are you sure you want to delete this spec? yes or no', 'yes')
     if (check === 'yes') {
@@ -31,10 +48,19 @@ export default function SpecItem({ spec, deleteSpec, editStatus }) {
     }
   };
 
+  /**
+   * Navigates to the stepper page for editing a spec.
+   * Transferring the information of the spec to the stepper along with going to the stepper's page
+   */
   const handleEdit = () => {
     navigate('/stepper', {state: {spec}})
   }
 
+  /**
+   *  Edit the status of a spec in the Database and active the edit in the page.
+   * @param specId - The ID of the spec that needs to be edited.
+   * @body status - The new status of the spec
+   */
   const handleEditStatus = async (specId, status) => {
     try {
       await axios.put(`${import.meta.env.VITE_BACKEND_URL}/status/${specId}`);

@@ -14,12 +14,16 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 
 
+/**
+ * Component for displaying a list of specifications.
+ * @component
+ */
 function SpecList() {
+    // State to hold the list of all the specs
     const [teamSpecs, setTeamSpecs] = useState([]);
 
     function deleteSpec(specId) {
-        const newSpecs = teamSpecs.filter(spec => spec._id !== specId);
-        setTeamSpecs(newSpecs)
+        setTeamSpecs(teamSpecs.filter(spec => spec._id !== specId))
     }
 
     function editStatus(specId, status) {
@@ -27,6 +31,7 @@ function SpecList() {
         setTeamSpecs(newSpecs)
     }
 
+    // Get all the specs from the Database and set them in the state
     useEffect( () => {
         axios.get(`${import.meta.env.VITE_BACKEND_URL}`)
             .then(response => {
@@ -35,6 +40,7 @@ function SpecList() {
     }, []);
 
   return (
+
     <Grid container spacing={2}>
       <Grid item xs={1}>
         <Timeline

@@ -24,7 +24,8 @@ export default function HorizontalNonLinearStepper() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [stepperData, setStepperData] = useState({title: '', content: '', participants: [], kpis: [],});
+  const [stepperData, setStepperData] = useState(
+      {title: '', content: '', participants: [], kpis: [], status: 'active'});
 
   // flags:
   const [flag, setFlag] = useState(false);
@@ -45,6 +46,9 @@ export default function HorizontalNonLinearStepper() {
   // TODO: להוסיף תיעוד לכל פונקציה רלוונטית
 
   // TODO: לסדר את שמירת הusers
+    // TODO: Responsive Design:
+    // הפריסה שלך מבוססת על xs={1} ו- xs={10}, כדאי לוודא שהיא יחסית למסך קטן. יש לבדוק את התצוגה על מסכים קטנים ולוודא שהעיצוב נראה נכון
+    //TODO: הכפתור של הסטטוס
 
 
   const totalSteps = steps.length;
