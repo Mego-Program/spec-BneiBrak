@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from 'axios';
 
-import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup } from '@mui/material';
+import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup, Select, MenuItem } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -31,8 +31,7 @@ export default function SpecItem({ spec, deleteSpec, editStatus }) {
   const handleDelete = async (idToDelete) => {
     try {
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/delete/${idToDelete}`);
-      console.log('Spec deleted successfully');
-      deleteSpec(idToDelete)
+      deleteSpec()
     } catch (error) {
       console.error('Error deleting:', error);
     }
@@ -61,11 +60,10 @@ export default function SpecItem({ spec, deleteSpec, editStatus }) {
    * @param specId - The ID of the spec that needs to be edited.
    * @body status - The new status of the spec
    */
-  const handleEditStatus = async (specId, status) => {
+  const handleEditStatus = async (event) => {
     try {
-      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/status/${specId}`);
-      console.log('Spec updated status successfully');
-      editStatus(specId, status)
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/status/${spec._id}`, {status: event.target.value});
+      editStatus();
     } catch (error) {
       console.error('Error updating:', error);
     }
@@ -97,7 +95,22 @@ export default function SpecItem({ spec, deleteSpec, editStatus }) {
             <Typography sx={{marginBottom: '60px', fontSize: '12px'}}>{spec.content}</Typography>
           </Grid>
           <Grid item xs={3}>
-            <Typography sx={{marginLeft: '120px', color: statusColor,}}>{spec.status}</Typography>
+            <Select
+                value={spec.status}
+                onChange={handleEditStatus}
+                sx={{
+                  marginLeft: '120px',
+                  marginTop: '0px',
+                  color: statusColor,
+                  '& .MuiSelect-icon': {
+                    color: statusColor,
+                  },
+                }}
+            >
+              <MenuItem value="In progress">In process</MenuItem>
+              <MenuItem value="active">active</MenuItem>
+              <MenuItem value="Done">Done</MenuItem>
+            </Select>
           </Grid>
 
           <Grid item xs={3}>
