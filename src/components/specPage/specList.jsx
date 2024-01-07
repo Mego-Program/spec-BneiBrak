@@ -23,7 +23,7 @@ function SpecList() {
     const [teamSpecs, setTeamSpecs] = useState([]);
 
     function deleteSpec(specId) {
-        setTeamSpecs(teamSpecs.filter(spec => spec._id !== specId))
+        setTeamSpecs(teamSpecs.filter(spec => spec._id !== specId).reverse())
     }
 
     function editStatus(specId, status) {
