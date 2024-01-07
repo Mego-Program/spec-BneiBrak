@@ -4,7 +4,7 @@ import { Editor, EditorState, getDefaultKeyBinding, RichUtils, convertToRaw, con
 // import "./MyRichEditor";
 // import { Box, TextField, } from "@mui/material";
 import draftToHtml from 'draftjs-to-html';
-import { RichEditorRoot, RichEditorEdit, RichEditorControls, } from "./RichTextEditor.style";
+import { RichEditorRoot, RichEditorEdit, RichEditorControls, } from "./RichTextEditor.style.jsx";
 
 // import { styled} from '@mui/material/styles';
 // const codeBlock11 =styled(TextField)`

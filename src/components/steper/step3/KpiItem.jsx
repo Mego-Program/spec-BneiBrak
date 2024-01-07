@@ -1,17 +1,11 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { Box, IconButton } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import {
-  InputTextLine,
-  CustomDropdown,
-  CustomNumberField,
-  CustomPeriod,
-} from "./EditKpi1";
-import AlertDialog from "./AlertDialog";
-import { v4 as uuidv4 } from 'uuid';
 
-const KpiItem1 = ({ id, onDelete}) => {
+import {InputTextLine, CustomDropdown, CustomNumberField, CustomPeriod,} from "./KpiEditor.jsx";
+import AlertDialog from "./AlertDialog.jsx";
+
+
+const KpiItem = ({onDelete, id, kpiList, setKpiList}) => {
   return (
     <Typography
       variant="body1"
@@ -28,14 +22,13 @@ const KpiItem1 = ({ id, onDelete}) => {
         padding: 2,
       }}
     >
-      {/* Render each KPI item row */}
-      We will <InputTextLine /> <CustomDropdown  /> <CustomNumberField />{" "}
-      <CustomPeriod />
+      We will <InputTextLine kpiList={kpiList} setKpiList={setKpiList} id={id}/>
+        <CustomDropdown  kpiList={kpiList} setKpiList={setKpiList} id={id}/>
+        <CustomNumberField kpiList={kpiList} setKpiList={setKpiList} id={id}/>{" "}
+      <CustomPeriod kpiList={kpiList} setKpiList={setKpiList} id={id}/>
       <AlertDialog onDelete={onDelete} id={id}/>
-      {/* Include the SaveButton component */}
-      
     </Typography>
   );
 };
 
-export default KpiItem1;
+export default KpiItem;

@@ -1,10 +1,12 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import CreateKpi1 from './kpi';
-import InvisibleNamesList from './step2';
-import TextEditor from './step1';
 
-const StepBox = ({ active, step, stepperData, setStepperData }) => {
+import TextEditor from './step1/step1.jsx';
+import InvisibleNamesList from './step2/step2.jsx';
+import CreateKpi from "./step3/step3.jsx";
+
+
+const StepBox = ({ active, step, stepperData, setStepperData}) => {
 
   const boxStyle = {
     width: '773px',
@@ -43,7 +45,7 @@ const StepBox = ({ active, step, stepperData, setStepperData }) => {
     case 3:
       content = (
         <div>
-          <CreateKpi1 setStepperData={setStepperData} stepperData={stepperData} />
+          <CreateKpi setStepperData={setStepperData} stepperData={stepperData} />
         </div>
       );
   }

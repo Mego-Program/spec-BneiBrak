@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import StepBox from './StepBox';
+import React, { useEffect, useState} from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 
+import StepBox from './StepBox.jsx';
 
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -19,46 +19,37 @@ const customConnectorStyles = {
   },
 };
 
+
 export default function HorizontalNonLinearStepper() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [stepperData, setStepperData] = useState(
+      {title: '', content: '', participants: [], kpis: [], status: 'active'});
+
+  // flags:
+  const [flag, setFlag] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
-  const [stepperData, setStepperData] = useState({
-    title: '',
-    content: '',
-    participants: [],
-    kpis: [],
-  });
 
-  // TODO: להשלים את המשיכה מעידן ומאיר
+  useEffect(() => {
+      const booleanFlag = location.state && location.state.spec
+      let data = booleanFlag ?
+          location.state.spec : stepperData
+      setStepperData(data)
+      setFlag(booleanFlag)
+  }, [location]);
 
-  // TODO: להחזיק את הKPI במשתנה stepperData כמו שעשינו עם המשתתפים
-  // TODO: בפונקציה עדכון פשוט למשוך את השדות של ה-spec לתוך השדות ב-stepperData וכך לחסוך את הפונקציה
-  // TODO: אם יש ID אז למשוך כאמור את השדות stepperData ואם לא תיצור מודל חדש של ה- SpecScheama
-  // TODO: אותו דבר צריך לעשות ל-KPI בתוך השדה הרלוונטי
-    // const [kpi, setKpi] = useState({})
+  // TODO: החלק של מאיר
 
-  // TODO: לקורא לפורט מenvאו בדרך אחרת שיראה יותר נקי ויהיה ניתן לשלוט בפורט ממקום אחד
-  // TODO: רינדור אחרי לחציה על מחיקה
-  // TODO: מחמיקת שורות מיותרות מכל הקוד
+    // TODO: מחמיקת שורות מיותרות מכל הקוד
   // TODO: להוסיף תיעוד לכל פונקציה רלוונטית
 
-  // TODO: לסדר את התאריך והנראות של הדפים
-  // TODO: הצגת רשימת הspec ברוורס
+  // TODO: לסדר את שמירת הusers
+    // TODO: Responsive Design:
+    // הפריסה שלך מבוססת על xs={1} ו- xs={10}, כדאי לוודא שהיא יחסית למסך קטן.
+    // יש לבדוק את התצוגה על מסכים קטנים ולוודא שהעיצוב נראה נכון
 
-    async function sendData(data/*, header={}*/) {
-        const response = await axios.post('http://localhost:3000/spec/save', data /*, header*/);
-        console.log('Data has been sent:', response.data);
-        return response.data
-    }
-    async function sendDataToController() {
-        await sendData(stepperData)
-    }
-    const sendDataOnClick = () => {
-        sendDataToController()
-        navigate("/")
-        setStepperData({ ...stepperData}) /*for rendering*/
-    }
 
   const totalSteps = steps.length;
   const completedSteps = Object.keys(completed).length;
@@ -68,38 +59,40 @@ export default function HorizontalNonLinearStepper() {
 
   const handleNext = () => {
     const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
+      isLastStep() && !allStepsCompleted() ?
+          steps.findIndex((step, i) => !(i in completed)) : activeStep + 1;
     setActiveStep(newActiveStep);
 
-  //   if (isLastStep()) {
-  //     axios.post('http://localhost:3000/spec/', stepperData)
-  //       .then(response => {
-  //         console.log('Data has been sent:', response.data);
-  //
-  //       }) .catch(error => {
-  //         console.error('Error sending data:', error);
-  //         navigate("/spec")
-  //       });
-  //   }
+    if (isLastStep()) {
+        let url = `${import.meta.env.VITE_BACKEND_URL}`
+        url = flag ? url + `/update` : url + '/save'
+
+        axios.post(url, stepperData)
+        .then(response => {
+          console.log('Data has been sent:', response.data);
+            navigate("/")
+            setStepperData({ ...stepperData}) /*for rendering*/
+        }) .catch(error => {
+          console.error('Error the data has not been sent:', error);
+          navigate("/")
+        });
+    }
+
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleStep = (step) => () => {
-    setActiveStep(step);
-  };
+  const handleStep = (step) => () => setActiveStep(step);
 
-  const handleComplete = () => {
-    setCompleted((prevCompleted) => ({
-      ...prevCompleted,
-      [activeStep]: true,
-    }));
-    handleNext();
-  };
+  // const handleComplete = () => {
+  //   setCompleted((prevCompleted) => ({
+  //     ...prevCompleted,
+  //     [activeStep]: true,
+  //   }));
+  //   handleNext();
+  // };
 
   return (
     <Box sx={{ width: '50%', margin: '0 auto', marginTop: '3%' }}>
@@ -141,7 +134,9 @@ export default function HorizontalNonLinearStepper() {
         ))}
       </Stepper>
 
-      <StepBox active={true} step={activeStep + 1} setStepperData={setStepperData} stepperData={stepperData}/>
+      <StepBox active={true} step={activeStep + 1}
+               setStepperData={setStepperData} stepperData={stepperData}
+      />
 
       <Box
         sx={{
@@ -161,7 +156,7 @@ export default function HorizontalNonLinearStepper() {
             Back
           </Button>
         )}
-        <Button onClick={isLastStep() ? sendDataOnClick : handleNext}
+        <Button onClick={handleNext}
                 sx={{ backgroundColor: '#21213E', color: 'white' }}>
           {isLastStep() ? 'Finish' : 'Next'}
         </Button>
