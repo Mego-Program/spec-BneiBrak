@@ -52,7 +52,7 @@ export default function SpecItem({ spec, renderList }) {
    * Transferring the information of the spec to the stepper along with going to the stepper's page
    */
   const handleEdit = () => {
-    navigate('/stepper', {state: {spec}})
+    navigate('/spec/stepper', {state: {spec}})
   }
 
   /**
