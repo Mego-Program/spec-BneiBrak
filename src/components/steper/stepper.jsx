@@ -77,7 +77,6 @@ export default function HorizontalNonLinearStepper() {
           navigate("/")
         });
     }
-
   };
 
   const handleBack = () => {

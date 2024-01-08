@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Route, Routes as ReactRoutes } from 'react-rou
 const AppRoutes = () => {
   return (
     <ReactRoutes>
-      <Route path="/" element={<App />} />
-      <Route path="/stepper/*" element={<HorizontalNonLinearStepper />} />
+      <Route path="/spec/" element={<App />} />
+      <Route path="/spec/stepper/*" element={<HorizontalNonLinearStepper />} />
     </ReactRoutes>
   );
 };

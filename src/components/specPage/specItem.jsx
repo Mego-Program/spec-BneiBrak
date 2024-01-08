@@ -8,15 +8,14 @@ import EditIcon from '@mui/icons-material/Edit';
 
 
 /**
- * Component to display a single specification item.
+ * Component to display a single spec item.
  * @component
  * @param {Object} props - The properties passed from specList to the component.
  * @param {Object} props.spec - The specification object to be displayed.
- * @param {Function} props.deleteSpec - Callback function to delete a spec from the page.
- * @param {Function} props.editStatus - Callback function to edit the status of a spec in the page.
+ * @param {Function} props.renderList - Callback function to update the list of spec.
  * @returns {JSX.Element} - The rendered component.
  */
-export default function SpecItem({ spec, deleteSpec, editStatus }) {
+export default function SpecItem({ spec, renderList }) {
   const isInProcess = spec.status === 'In process';
   const cardBorderColor = isInProcess ? 'primary.main' : 'transparent';
   const statusColor = isInProcess ? '#ffffff' : 'primary.main';
@@ -31,7 +30,8 @@ export default function SpecItem({ spec, deleteSpec, editStatus }) {
   const handleDelete = async (idToDelete) => {
     try {
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/delete/${idToDelete}`);
-      deleteSpec()
+      renderList()
+      console.log('Spec deleted successfully');
     } catch (error) {
       console.error('Error deleting:', error);
     }
@@ -63,7 +63,7 @@ export default function SpecItem({ spec, deleteSpec, editStatus }) {
   const handleEditStatus = async (event) => {
     try {
       await axios.put(`${import.meta.env.VITE_BACKEND_URL}/status/${spec._id}`, {status: event.target.value});
-      editStatus();
+      renderList();
     } catch (error) {
       console.error('Error updating:', error);
     }
