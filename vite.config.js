@@ -11,7 +11,7 @@ export default defineConfig({
       name: "spec_app",
       filename: "remoteEntry.js",
       exposes: {
-        './App': './src/main/routes.jsx'
+        './App': './src/components/main/routes.jsx'
       },
       shared: ['react','react-dom']
     })
