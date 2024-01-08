@@ -21,12 +21,16 @@ import TimelineDot from '@mui/lab/TimelineDot';
 function SpecList() {
     // State to hold the list of all the specs
     const [teamSpecs, setTeamSpecs] = useState([]);
+    const [flag, setFlag] = useState(true);
 
     // Get all the specs from the Database and set them in the state
     const getSpecs = async () => {
         try {
-            const listSpec = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`);
-            setTeamSpecs(listSpec.data.allSpecsList);
+            if (flag) {
+                const listSpec = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`);
+                setTeamSpecs(listSpec.data.allSpecsList);
+                setFlag(false)
+            }
         } catch (error) {
             console.error(error);
         }
@@ -34,18 +38,13 @@ function SpecList() {
 
     useEffect(() => {
         getSpecs();
-    }, [editStatus, deleteSpec]);
+    }, [renderList]);
 
-    function deleteSpec() {
-        console.log('Spec deleted successfully');
-    }
-
-    function editStatus() {
-        console.log('Spec updated status successfully')
+    function renderList() {
+        setFlag(true)
     }
 
     return (
-
         <Grid container spacing={2}>
             <Grid item xs={1}>
                 <Timeline
@@ -121,7 +120,7 @@ function SpecList() {
                     </Grid>
                     {[...teamSpecs].reverse().map((spec) => (
                         <Grid key={spec._id} item xs={12}>
-                            <SpecItem spec={spec} deleteSpec={deleteSpec} editStatus={editStatus}/>
+                            <SpecItem spec={spec} renderList={renderList}/>
                         </Grid>
                     ))}
                 </Grid>
