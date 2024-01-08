@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Box } from "@mui/material";
+import { Box,TextField } from "@mui/material";
 
 // import { CustomSpan } from "./RichTextEditor.style"; //אמור להיות בריצטקסט אדיטור 
 
@@ -18,6 +18,7 @@ export const RichEditorRoot = styled(Box)({
     fontSize: "14px",
     padding: "15px",
     minHeight: "300px",
+    
 
     "& .public-DraftStyleDefault-pre": {
         backgroundColor: "rgba(0, 0, 0, 0.05)",
