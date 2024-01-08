@@ -70,11 +70,11 @@ export default function HorizontalNonLinearStepper() {
         axios.post(url, stepperData)
         .then(response => {
           console.log('Data has been sent:', response.data);
-            navigate("/")
+            navigate("/spec")
             setStepperData({ ...stepperData}) /*for rendering*/
         }) .catch(error => {
           console.error('Error the data has not been sent:', error);
-          navigate("/")
+          navigate("/spec")
         });
     }
   };
