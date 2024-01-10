@@ -87,7 +87,7 @@ function SpecList() {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Button
-                            component={Link} to={"/stepper"}
+                            component={Link} to={"stepper"}
                             variant="contained"
                             color="primary"
                             style={{

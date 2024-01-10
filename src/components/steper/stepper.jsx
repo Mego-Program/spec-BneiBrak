@@ -25,7 +25,15 @@ export default function HorizontalNonLinearStepper() {
   const location = useLocation();
 
   const [stepperData, setStepperData] = useState(
-      {title: '', content: '', participants: [], kpis: [], status: 'active'});
+      {title: '', content: '{"blocks":[{"key":"6kdab",' +
+                                                  '"text":"Hello  Meir",' +
+                                                  '"type":"unstyled",' +
+                                                  '"depth":0,' +
+                                                  '"inlineStyleRanges":[{"offset":0,"length":6,"style":"UNDERLINE"},{"offset":5,"length":6,"style":"BOLD"},{"offset":5,"length":2,"style":"ITALIC"}],' +
+                                                  '"entityRanges":[],' +
+                                                  '"data":{}}],' +
+                                      '"entityMap":{}}',
+          participants: [], kpis: [], status: 'active'});
 
   // flags:
   const [flag, setFlag] = useState(false);

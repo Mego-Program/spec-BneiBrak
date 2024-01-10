@@ -5,34 +5,37 @@ import axios from 'axios';
 const InvisibleNamesList = ({stepperData, setStepperData}) => {
     const [allNames, setAllNames] = useState([]);
     const [remainNames, setRemainNames] = useState([]);
+    const [rendering, setRendering] = useState(true);
+    const handleSelectName = (event) => {
+        const userToAdd = allNames.find(user => user.firstName  + ' ' + user.lastName === event.target.value) ;
+        const newParticipants =  {participants: [...stepperData.participants, userToAdd]}
+        setStepperData({...stepperData, ...newParticipants});
+        setRendering(true);
+    };
 
+    const handleRemoveName = (userToRemove) => {
+        const updatedNames = stepperData.participants.filter(user => user._id !== userToRemove._id);
+        setStepperData({ ...stepperData, participants: updatedNames});
+        setRendering(true);
+    };
   useEffect(() => {
     const fetchNames = async () => {
       const token = localStorage.getItem("authToken");
       // console.log('token:', token)
       try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/infraImport/allUsers`,
-            {headers: {'Authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
+            {headers: {'authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
         setAllNames(response.data.data.result);
-        setRemainNames(allNames.filter(user => !stepperData.participants.includes(user._id)).map(user => user.firstName  + ' ' + user.lastName));
+        setRemainNames(allNames.filter(user => !stepperData.participants.includes(user)));
       } catch (error) {console.error('Error fetching names:', error)}
     };
-    fetchNames();
-  }, []);
+    if (rendering) fetchNames();
+    setRendering(false);
+  }, [rendering]);
 
-  const handleNameChange = (event) => {
-    const userToAdd = event.target.value;
-    let user = remainNames.find(user => user.firstName  + ' ' + user.lastName === userToAdd)
-    setRemainNames(remainNames.filter(user => user.firstName  + ' ' + user.lastName !== userToAdd));
-    const newParticipants =  {participants: [...stepperData.participants, user._id]}
-    setStepperData({...stepperData, ...newParticipants});
-  };
-
-  const handleRemoveName = (id) => {
-    const updatedNames = stepperData.participants.filter(userId => userId !== id);
-    setStepperData({ ...stepperData, participants: updatedNames});
-  };
-
+    console.log('remainNames:', remainNames)
+    console.log('allNames:', allNames)
+    console.log('participants:', stepperData.participants)
   return (
       <div>
         <Grid container spacing={2}>
@@ -40,8 +43,8 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
             <FormControl fullWidth>
               <InputLabel style={{ color: '#fff' }}>Names for team selection</InputLabel>
               <Select
-                  value={stepperData.participants}
-                  onChange={handleNameChange}
+                  value={remainNames}
+                  onChange={handleSelectName}
                   label="Names for team selection"
                   style={{ color: '#fff' }}
               >
@@ -59,13 +62,13 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
           Teammates:
         </Typography>
         <ul>
-          {stepperData.participants.map((id, index) => (
+          {stepperData.participants.map((user, index) => (
               <li
                   key={index}
-                  onClick={() => handleRemoveName(id)}
+                  onClick={() => handleRemoveName(user)}
                   style={{ cursor: 'pointer' }}
               >
-                {allNames.find(user => user._id === id).firstName  + ' ' + allNames.find(user => user._id === id).lastName}
+                {user.firstName  + ' ' + user.lastName}
               </li>
           ))}
         </ul>

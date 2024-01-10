@@ -57,7 +57,6 @@ export default function SpecItem({ spec, renderList }) {
 
   /**
    *  Edit the status of a spec in the Database and active the edit in the page.
-   * @param specId - The ID of the spec that needs to be edited.
    * @body status - The new status of the spec
    */
   const handleEditStatus = async (event) => {

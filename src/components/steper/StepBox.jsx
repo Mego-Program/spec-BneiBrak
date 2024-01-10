@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 
 import TextEditor from './step1/step1.jsx';
-import InvisibleNamesList from './step2/step2.jsx';
+import InvisibleNamesList from './step2/step2-try.jsx';
 import CreateKpi from "./step3/step3.jsx";
 
 
