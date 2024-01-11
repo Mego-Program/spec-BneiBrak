@@ -77,7 +77,7 @@ function SpecList() {
                                     opacity: spec.status === "Done" ? 0.5 : 1,
                                 }}
                             >
-                                {spec.date}
+                                <span>{spec.date}</span>
                             </TimelineContent>
                         </TimelineItem>
                     ))}
