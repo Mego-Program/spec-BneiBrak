@@ -1,47 +1,53 @@
-import React, { useState, useEffect } from 'react';
+fiximport React, { useState, useEffect } from 'react';
 import {FormControl, InputLabel, Select, MenuItem, Typography, Grid,} from '@mui/material';
 import axios from 'axios';
 
 const InvisibleNamesList = ({stepperData, setStepperData}) => {
-
     const [allNames, setAllNames] = useState([]);
     const [remainNames, setRemainNames] = useState([]);
     const [rendering, setRendering] = useState(true);
 
+    // const fetchNames = async () => {
+    //     const token = localStorage.getItem("authToken");
+    //     // console.log('token:', token)
+    //     try {
+    //         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/infraImport/allUsers`,
+    //             {headers: {'authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
+    //         setRemainNames(response.data.data.result);
+    //         setAllNames(response.data.data.result);
+    //     } catch (error) {console.error('Error fetching names:', error)}
+    // };
+
     const fetchNames = async () => {
         const token = localStorage.getItem("authToken");
-        // console.log('token:', token)
         try {
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/infraImport/allUsers`,
-                {headers: {'authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
-            setAllNames(response.data.data.result);
-            setRemainNames(response.data.data.result);
-        } catch (error) {console.error('Error fetching names:', error)}
+            const response = await axios.get(`http://localhost:5000/api/users/users`,
+                {headers: {'authorization': token, 'Content-Type': 'application/json; charset=utf-8',}});
+            setRemainNames(response.data.result);
+            setAllNames(response.data.result);
+        } catch (error) {
+            console.error('Error fetching names:', error);
+        }
     };
-
-    // console.log('bool:', !allNames.length)
 
 
     useEffect(() => {if (rendering) {
         if (!allNames.length) fetchNames();
-        setRemainNames(remainNames.filter(user => !stepperData.participants.includes(user)));
+        setRemainNames(allNames.filter(user => !stepperData.participants.includes(user)));
           setRendering(false);}
     }, [rendering]);
 
+
     const handleSelectName = (event) => {
-        const userToAdd = allNames.find(user => user.firstName  + ' ' + user.lastName === event.target.value) ;
+        const userToAdd = remainNames.find(user => user._id === event.target.value);
         const newParticipants =  {participants: [...stepperData.participants, userToAdd]}
         setStepperData({...stepperData, ...newParticipants});
-        console.log('remainNames:', remainNames)
-        console.log('participants:', stepperData.participants)
         setRendering(true);
     };
 
     const handleRemoveName = (userToRemove) => {
         const updatedNames = stepperData.participants.filter(user => user._id !== userToRemove._id);
         setStepperData({ ...stepperData, participants: updatedNames});
-        console.log('remainNames:', remainNames)
-        console.log('participants:', stepperData.participants)
         setRendering(true);
     };
 
@@ -59,7 +65,7 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
                   style={{ color: '#fff' }}
               >
                 {remainNames.map((user, index) => (
-                        <MenuItem key={index} value={user.firstName  + ' ' + user.lastName} >
+                        <MenuItem key={index} value={user._id} >
                           {user.firstName  + ' ' + user.lastName}
                         </MenuItem>)
                 )}

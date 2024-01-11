@@ -56,7 +56,7 @@ function SpecList() {
                         marginTop: "75px",
                     }}
                 >
-                    {teamSpecs.map((spec, index) => (
+                    {[...teamSpecs].reverse().map((spec, index) => (
                         <TimelineItem
                             key={spec._id}
                             sx={{minHeight: `${100 / teamSpecs.length - 2}%`}}

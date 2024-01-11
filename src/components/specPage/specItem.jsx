@@ -112,14 +112,23 @@ export default function SpecItem({ spec, renderList }) {
               <Typography sx={{marginBottom: '60px', fontSize: '12px'}}>
                 <div dangerouslySetInnerHTML={{ __html: draftToHtml(JSON.parse(spec.content)) }} />
               </Typography>
+
             </Grid>
+              <AvatarGroup sx={{width: '15%'}}>
+                  {spec.participants.map((person, index) => (
+                      <Avatar key={index} alt={person.lastName} sx={{ bgcolor: "#121231", color: '#F6C927', }}>{person[0]}</Avatar>
+                  ))}
+              </AvatarGroup>
+
             <Grid item xs={3}>
               <Select
                   value={spec.status}
                   onChange={handleEditStatus}
                   sx={{
+                      height: '20px',
                     marginLeft: '120px',
-                    marginTop: '0px',
+                    marginTop: '3%',
+                      size: 'large',
                     color: statusColor,
                     '& .MuiSelect-icon': {
                       color: statusColor,
@@ -187,11 +196,7 @@ export default function SpecItem({ spec, renderList }) {
 
               {/*<AlertDialog onDelete={handleDelete} id={spec._id}/>*/}
             </Grid>
-            <AvatarGroup>
-              {spec.participants.map((person, index) => (
-                  <Avatar key={index} alt="User 1" sx={{ bgcolor: "#121231", color: '#F6C927', }}>{person[0]}</Avatar>
-              ))}
-            </AvatarGroup>
+
           </Grid>
         </CardContent>
           {/*<Collapse in={expanded} timeout="auto" unmountOnExit>*/}
