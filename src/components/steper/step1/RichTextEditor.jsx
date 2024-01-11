@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect} from "react";
 import { Editor, EditorState, getDefaultKeyBinding, RichUtils, convertToRaw, convertFromRaw, } from 'draft-js';
 import { RichEditorRoot, RichEditorEdit, RichEditorControls, } from "./RichTextEditor.style.jsx";
+import 'setimmediate';
 
 const style = {
   RichEditor_styleButton: {
@@ -20,12 +21,26 @@ const style = {
 }
 
 const RichTextEditor = ({stepperData, setStepperData}) => {
+  const contInit = '{"blocks":[{"key":"6kdab",' +
+                                      '"text":"",' +
+                                      '"type":"unstyled",' +
+                                      '"depth":0,' +
+                                      '"inlineStyleRanges":[],' +
+                                      '"entityRanges":[],' +
+                                      '"data":{}}],' +
+                            '"entityMap":{}}';
 
-  const [editorState, setEditorState] = useState(() => {
-    console.log(stepperData.content)
-    const editorContent = convertFromRaw(JSON.parse(stepperData.content));
+  function convertToEditorState(content) {
+    const editorContent = convertFromRaw(JSON.parse(content));
     return EditorState.createWithContent(editorContent);
-  });
+  }
+
+  const [editorState, setEditorState] = useState(convertToEditorState(contInit));
+  const [initFlag, setInitFlag] = useState(true);
+  if (initFlag && stepperData.content) {
+    setEditorState(convertToEditorState(stepperData.content))
+    setInitFlag(false)
+  }
 
   const editorRef = useRef(null);
   const focusEditor = () => {
@@ -36,6 +51,7 @@ const RichTextEditor = ({stepperData, setStepperData}) => {
     const raw = convertToRaw(editorState.getCurrentContent())
     const contentString = JSON.stringify(raw)
     setStepperData({ ...stepperData, content: contentString })
+    if (initFlag) setInitFlag(false)
   };
 
   useEffect(() => {
@@ -52,11 +68,7 @@ const RichTextEditor = ({stepperData, setStepperData}) => {
 
   const mapKeyToEditorCommand = (e) => {
     if (e.keyCode === 9) {
-      const newEditorState = RichUtils.onTab(
-        e,
-        editorState,
-        4,
-      );
+      const newEditorState = RichUtils.onTab(e, editorState, 4,);
       if (newEditorState !== editorState) {
         setEditorState(newEditorState);
       }

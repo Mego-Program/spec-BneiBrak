@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup, Select, MenuItem } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-
+import AlertDialog from '../steper/step3/AlertDialog';
 
 /**
  * Component to display a single spec item.
@@ -82,56 +82,56 @@ export default function SpecItem({ spec, renderList }) {
           }}
       >
         <CardContent
-        onClick={() => {
-          console.log(spec)
-        }}
-          >
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography sx={{fontSize: '25px',}}>{spec.title}</Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography sx={{marginBottom: '60px', fontSize: '12px'}}>{spec.content}</Typography>
-          </Grid>
-          <Grid item xs={3}>
-            <Select
-                value={spec.status}
-                onChange={handleEditStatus}
-                sx={{
-                  marginLeft: '120px',
-                  marginTop: '0px',
-                  color: statusColor,
-                  '& .MuiSelect-icon': {
+            onClick={() => {
+              console.log(spec)
+            }}
+        >
+          <Grid container>
+            <Grid item xs={12}>
+              <Typography sx={{fontSize: '25px',}}>{spec.title}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography sx={{marginBottom: '60px', fontSize: '12px'}}>{spec.content}</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Select
+                  value={spec.status}
+                  onChange={handleEditStatus}
+                  sx={{
+                    marginLeft: '120px',
+                    marginTop: '0px',
                     color: statusColor,
-                  },
-                }}
-            >
-              <MenuItem value="In progress">In process</MenuItem>
-              <MenuItem value="active">active</MenuItem>
-              <MenuItem value="Done">Done</MenuItem>
-            </Select>
-          </Grid>
+                    '& .MuiSelect-icon': {
+                      color: statusColor,
+                    },
+                  }}
+              >
+                <MenuItem value="In progress">In process</MenuItem>
+                <MenuItem value="active">active</MenuItem>
+                <MenuItem value="Done">Done</MenuItem>
+              </Select>
+            </Grid>
 
-          <Grid item xs={3}>
+            <Grid item xs={3}>
 
-            <Button variant='text' size='small' sx={{
-              color: 'white',
-              height: '53',
-              width: '53',
-              minWidth: '0px',
-              borderRadius: '50%',
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              borderColor: '#F6C927',
-              margin: '0 10px',
+              <Button variant='text' size='small' sx={{
+                color: 'white',
+                height: '53',
+                width: '53',
+                minWidth: '0px',
+                borderRadius: '50%',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: '#F6C927',
+                margin: '0 10px',
 
-              '&:hover': {
-                bgcolor: '#F6C927',
-              },
-            }} onClick={handleEdit}>
-              <EditIcon />
-            </Button>
-            <Button onClick={onClickDelete} variant='text' size='small' sx={{
+                '&:hover': {
+                  bgcolor: '#F6C927',
+                },
+              }} onClick={handleEdit}>
+                <EditIcon />
+              </Button>
+              <Button onClick={onClickDelete} variant='text' size='small' sx={{
               color: 'white',
               height: '53',
               width: '53',
@@ -147,15 +147,17 @@ export default function SpecItem({ spec, renderList }) {
               },
             }}>
               <DeleteIcon/>
-            </Button>
+              </Button>
+
+              {/*<AlertDialog/>*/}
+            </Grid>
+            <AvatarGroup>
+              {spec.participants.map((person, index) => (
+                  <Avatar key={index} alt="User 1" sx={{ bgcolor: "#121231", color: '#F6C927', }}>{person[0]}</Avatar>
+              ))}
+            </AvatarGroup>
           </Grid>
-          <AvatarGroup>
-            {spec.participants.map((person, index) => (
-              <Avatar key={index} alt="User 1" sx={{ bgcolor: "#121231", color: '#F6C927', }}>{person[0]}</Avatar>
-            ))}
-          </AvatarGroup>
-        </Grid>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
   );
 }
