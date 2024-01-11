@@ -30,17 +30,18 @@ const RichTextEditor = ({stepperData, setStepperData}) => {
                                       '"data":{}}],' +
                             '"entityMap":{}}';
 
-  function convertToEditorState(content) {
+  function  convertToEditorState(content) {
     const editorContent = convertFromRaw(JSON.parse(content));
     return EditorState.createWithContent(editorContent);
   }
 
   const [editorState, setEditorState] = useState(convertToEditorState(contInit));
   const [initFlag, setInitFlag] = useState(true);
-  if (initFlag && stepperData.content) {
-    setEditorState(convertToEditorState(stepperData.content))
-    setInitFlag(false)
-  }
+
+  useEffect(() => {if (stepperData.content) {
+      setEditorState(convertToEditorState(stepperData.content))
+      setInitFlag(false)}},[initFlag]);
+
 
   const editorRef = useRef(null);
   const focusEditor = () => {

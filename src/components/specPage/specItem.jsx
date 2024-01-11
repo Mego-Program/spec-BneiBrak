@@ -1,11 +1,24 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
+import draftToHtml from "draftjs-to-html";
 import axios from 'axios';
 
-import { Card, CardContent, Typography, Grid, Button, Avatar, AvatarGroup, Select, MenuItem } from '@mui/material';
+import {
+    Card,
+    CardContent,
+    Typography,
+    Grid,
+    Button,
+    Avatar,
+    AvatarGroup,
+    Select,
+    MenuItem,
+    Collapse
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AlertDialog from '../steper/step3/AlertDialog';
+
 
 /**
  * Component to display a single spec item.
@@ -21,6 +34,10 @@ export default function SpecItem({ spec, renderList }) {
   const statusColor = isInProcess ? '#ffffff' : 'primary.main';
   const cardOpacity = spec.status === 'Done' ? 0.5 : 1;
   const navigate = useNavigate();
+
+  // const [expanded, setExpanded] = React.useState(false);
+  // const handleExpandClick = () => {setExpanded(!expanded)}
+
 
   /**
    *  Delete a spec from the Database.
@@ -80,6 +97,7 @@ export default function SpecItem({ spec, renderList }) {
             bgcolor: "secondary.main",
             color: "white",
           }}
+
       >
         <CardContent
             onClick={() => {
@@ -91,7 +109,9 @@ export default function SpecItem({ spec, renderList }) {
               <Typography sx={{fontSize: '25px',}}>{spec.title}</Typography>
             </Grid>
             <Grid item xs={4}>
-              <Typography sx={{marginBottom: '60px', fontSize: '12px'}}>{spec.content}</Typography>
+              <Typography sx={{marginBottom: '60px', fontSize: '12px'}}>
+                <div dangerouslySetInnerHTML={{ __html: draftToHtml(JSON.parse(spec.content)) }} />
+              </Typography>
             </Grid>
             <Grid item xs={3}>
               <Select
@@ -106,13 +126,30 @@ export default function SpecItem({ spec, renderList }) {
                     },
                   }}
               >
-                <MenuItem value="In progress">In process</MenuItem>
+                <MenuItem value="In process">In process</MenuItem>
                 <MenuItem value="active">active</MenuItem>
                 <MenuItem value="Done">Done</MenuItem>
               </Select>
             </Grid>
 
             <Grid item xs={3}>
+
+              {/*<Button*/}
+              {/*    onClick={handleExpandClick}*/}
+              {/*    sx={{*/}
+              {/*      color: 'white',*/}
+              {/*      height: '53',*/}
+              {/*      width: '53',*/}
+              {/*      minWidth: '0px',*/}
+              {/*      borderRadius: '50%',*/}
+              {/*      borderWidth: '1px',*/}
+              {/*      borderStyle: 'solid',*/}
+              {/*      borderColor: '#F6C927',*/}
+              {/*      margin: '0 10px', '&:hover': {bgcolor: '#F6C927',},*/}
+              {/*    }}*/}
+              {/*>*/}
+              {/*  {expanded ? '-' : '+'}*/}
+              {/*</Button>*/}
 
               <Button variant='text' size='small' sx={{
                 color: 'white',
@@ -124,7 +161,6 @@ export default function SpecItem({ spec, renderList }) {
                 borderStyle: 'solid',
                 borderColor: '#F6C927',
                 margin: '0 10px',
-
                 '&:hover': {
                   bgcolor: '#F6C927',
                 },
@@ -149,7 +185,7 @@ export default function SpecItem({ spec, renderList }) {
               <DeleteIcon/>
               </Button>
 
-              {/*<AlertDialog/>*/}
+              {/*<AlertDialog onDelete={handleDelete} id={spec._id}/>*/}
             </Grid>
             <AvatarGroup>
               {spec.participants.map((person, index) => (
@@ -158,6 +194,14 @@ export default function SpecItem({ spec, renderList }) {
             </AvatarGroup>
           </Grid>
         </CardContent>
+          {/*<Collapse in={expanded} timeout="auto" unmountOnExit>*/}
+          {/*    <CardContent>*/}
+          {/*        /!* Additional content goes here *!/*/}
+          {/*        <Typography variant="body2" color="text.secondary">*/}
+          {/*            Additional content goes here.*/}
+          {/*        </Typography>*/}
+          {/*    </CardContent>*/}
+          {/*</Collapse>*/}
       </Card>
   );
 }

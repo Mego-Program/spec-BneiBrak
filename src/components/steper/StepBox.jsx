@@ -2,8 +2,9 @@ import React from 'react';
 import Box from '@mui/material/Box';
 
 import TextEditor from './step1/step1.jsx';
-import InvisibleNamesList from './step2/step2-try.jsx';
+import InvisibleNamesList from './step2/step2.jsx';
 import CreateKpi from "./step3/step3.jsx";
+import richTextEditor from "./step1/RichTextEditor.jsx";
 
 
 const StepBox = ({ active, step, stepperData, setStepperData}) => {
@@ -21,7 +22,7 @@ const StepBox = ({ active, step, stepperData, setStepperData}) => {
     color: '#fff',
     padding: '20px',
     overflowY: 'auto',
-    maxHeight: '400px',
+    minHeight: '400px',
   };
 
 

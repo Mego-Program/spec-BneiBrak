@@ -41,17 +41,6 @@ export default function HorizontalNonLinearStepper() {
       setFlag(booleanFlag)
   }, [location]);
 
-  // TODO: החלק של מאיר
-
-    // TODO: מחמיקת שורות מיותרות מכל הקוד
-  // TODO: להוסיף תיעוד לכל פונקציה רלוונטית
-
-  // TODO: לסדר את שמירת הusers
-    // TODO: Responsive Design:
-    // הפריסה שלך מבוססת על xs={1} ו- xs={10}, כדאי לוודא שהיא יחסית למסך קטן.
-    // יש לבדוק את התצוגה על מסכים קטנים ולוודא שהעיצוב נראה נכון
-
-
   const totalSteps = steps.length;
   const completedSteps = Object.keys(completed).length;
 
