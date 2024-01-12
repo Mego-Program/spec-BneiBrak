@@ -7,28 +7,28 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
     const [remainNames, setRemainNames] = useState([]);
     const [rendering, setRendering] = useState(true);
 
-    const fetchNames = async () => {
-        const token = localStorage.getItem("authToken");
-        // console.log('token:', token)
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/infraImport/allUsers`,
-                {headers: {'authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
-            setRemainNames(response.data.data.result);
-            setAllNames(response.data.data.result);
-        } catch (error) {console.error('Error fetching names:', error)}
-    };
-
     // const fetchNames = async () => {
     //     const token = localStorage.getItem("authToken");
+    //     // console.log('token:', token)
     //     try {
-    //         const response = await axios.get(`http://localhost:5000/api/users/users`,
-    //             {headers: {'authorization': token, 'Content-Type': 'application/json; charset=utf-8',}});
-    //         setRemainNames(response.data.result);
-    //         setAllNames(response.data.result);
-    //     } catch (error) {
-    //         console.error('Error fetching names:', error);
-    //     }
+    //         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/infraImport/allUsers`,
+    //             {headers: {'authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
+    //         setRemainNames(response.data.data.result);
+    //         setAllNames(response.data.data.result);
+    //     } catch (error) {console.error('Error fetching names:', error)}
     // };
+
+    const fetchNames = async () => {
+        const token = localStorage.getItem("authToken");
+        try {
+            const response = await axios.get(`http://localhost:5000/api/users/users`,
+                {headers: {'authorization': token, 'Content-Type': 'application/json; charset=utf-8',}});
+            setRemainNames(response.data.result);
+            setAllNames(response.data.result);
+        } catch (error) {
+            console.error('Error fetching names:', error);
+        }
+    };
 
 
     useEffect(() => {if (rendering) {

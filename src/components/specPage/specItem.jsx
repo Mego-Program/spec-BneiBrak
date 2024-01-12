@@ -3,18 +3,8 @@ import {useNavigate} from "react-router-dom";
 import draftToHtml from "draftjs-to-html";
 import axios from 'axios';
 
-import {
-    Card,
-    CardContent,
-    Typography,
-    Grid,
-    Button,
-    Avatar,
-    AvatarGroup,
-    Select,
-    MenuItem,
-    Collapse
-} from '@mui/material';
+import {Card, CardContent, Typography, Grid, Button, Avatar,
+    AvatarGroup, Select, MenuItem, Collapse} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AlertDialog from '../steper/step3/AlertDialog';
