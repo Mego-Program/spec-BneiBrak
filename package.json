@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-native": "^0.73.1",
     "react-router-dom": "^6.21.1",
+    "setimmediate": "^1.0.5",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

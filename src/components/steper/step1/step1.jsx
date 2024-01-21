@@ -1,11 +1,10 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-// import RichTextEditor from './RichTextEditor';
-// const content = '{"blocks":[{"key":"6kdab","text":"Hello  Meir","type":"unstyled","depth":0,"inlineStyleRanges":[{"offset":0,"length":6,"style":"UNDERLINE"},{"offset":5,"length":6,"style":"BOLD"},{"offset":5,"length":2,"style":"ITALIC"}],"entityRanges":[],"data":{}}],"entityMap":{}}'
-{/*<RichTextEditor content={content}/>*/}
+import RichTextEditor from './RichTextEditor';
 
 const TextEditor = ({stepperData, setStepperData}) => {
-  return (
+
+    return (
     <div>
       <TextField
         aria-label="Title"
@@ -24,23 +23,18 @@ const TextEditor = ({stepperData, setStepperData}) => {
           },
         }}
       />
-      <TextField
-        aria-label="Content"
-        label="Content"
-        minRows={3}
-        fullWidth
-        placeholder="Content"
-        value={stepperData.content}
-        onChange={(e) => {
-          setStepperData({ ...stepperData, content: e.target.value})
-          }}
-        style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
-        InputProps={{
-          style: {
-            color: 'white',
-          },
-        }}
-      />
+        <RichTextEditor stepperData={stepperData} setStepperData={setStepperData}
+                        aria-label="Content"
+                        label="Content"
+                        fullWidth
+                        placeholder="Content"
+                        style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
+                        InputProps={{
+                            style: {
+                                color: 'white',
+                            },
+                        }}
+        />
     </div>
   );
 };

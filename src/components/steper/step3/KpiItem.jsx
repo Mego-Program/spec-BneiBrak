@@ -26,7 +26,7 @@ const KpiItem = ({onDelete, id, kpiList, setKpiList}) => {
         <CustomDropdown  kpiList={kpiList} setKpiList={setKpiList} id={id}/>
         <CustomNumberField kpiList={kpiList} setKpiList={setKpiList} id={id}/>{" "}
       <CustomPeriod kpiList={kpiList} setKpiList={setKpiList} id={id}/>
-      <AlertDialog onDelete={onDelete} id={id}/>
+      <AlertDialog onDelete={onDelete} id={id} item={'Kpi'}/>
     </Typography>
   );
 };

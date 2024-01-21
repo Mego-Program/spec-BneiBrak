@@ -7,7 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-export default function AlertDialog({ onDelete, id }) {
+export default function AlertDialog({ onDelete, id, item }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -43,7 +43,7 @@ export default function AlertDialog({ onDelete, id }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Spec Delete"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{`${item} Delete`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Are you sure?

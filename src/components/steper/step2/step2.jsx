@@ -3,41 +3,42 @@ import {FormControl, InputLabel, Select, MenuItem, Typography, Grid,} from '@mui
 import axios from 'axios';
 
 const InvisibleNamesList = ({stepperData, setStepperData}) => {
-  const [allNames, setAllNames] = useState([]);
-  const [selectedName, setSelectedName] = useState('');
+    const [allNames, setAllNames] = useState([]);
+    const [remainNames, setRemainNames] = useState([]);
+    const [rendering, setRendering] = useState(true);
 
-  useEffect(() => {
     const fetchNames = async () => {
-      const token = localStorage.getItem("authToken");
-      // console.log('token:', token)
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/infraImport/allUsers`,
-            {headers: {'Authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
-        setAllNames(response.data.data.result);
-      } catch (error) {
-        console.error('Error fetching names:', error);
-      }
+        const token = localStorage.getItem("authToken");
+        // console.log('token:', token)
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/infraImport/allUsers`,
+                {headers: {'authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
+            setRemainNames(response.data.data.result);
+            setAllNames(response.data.data.result);
+        } catch (error) {console.error('Error fetching names:', error)}
     };
-    fetchNames();
-  }, []);
 
-  const handleNameChange = (event) => {
-    const userToAdd = event.target.value;
-    if (!stepperData.participants.includes(userToAdd) && userToAdd !== selectedName) {
-      const newParticipants =  {participants: [...stepperData.participants, userToAdd]}
-      setStepperData({...stepperData, ...newParticipants});
-    }
-    setSelectedName(stepperData.participants);
-  };
 
-  const handleRemoveName = (nameToRemove) => {
-    const updatedNames = stepperData.participants.filter((name) => name !== nameToRemove);
-    setStepperData({ ...stepperData, participants: updatedNames});
-  };
+    useEffect(() => {if (rendering) {
+        if (!allNames.length) fetchNames();
+        setRemainNames(allNames.filter(user => !stepperData.participants.includes(user)));
+          setRendering(false);}
+    }, [rendering]);
 
-  const handleNameClick = (clickedName) => {
-    handleRemoveName(clickedName);
-  };
+
+    const handleSelectName = (event) => {
+        const userToAdd = remainNames.find(user => user._id === event.target.value);
+        const newParticipants =  {participants: [...stepperData.participants, userToAdd]}
+        setStepperData({...stepperData, ...newParticipants});
+        setRendering(true);
+    };
+
+    const handleRemoveName = (userToRemove) => {
+        const updatedNames = stepperData.participants.filter(user => user._id !== userToRemove._id);
+        setStepperData({ ...stepperData, participants: updatedNames});
+        setRendering(true);
+    };
+
 
   return (
       <div>
@@ -46,18 +47,16 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
             <FormControl fullWidth>
               <InputLabel style={{ color: '#fff' }}>Names for team selection</InputLabel>
               <Select
-                  value={selectedName}
-                  onChange={handleNameChange}
+                  value={remainNames}
+                  onChange={handleSelectName}
                   label="Names for team selection"
                   style={{ color: '#fff' }}
               >
-                {allNames.map((user, index) => (
-                    !stepperData.participants.includes(user) && (
-                        <MenuItem key={index} value={user.firstName  + ' ' + user.lastName} >
+                {remainNames.map((user, index) => (
+                        <MenuItem key={index} value={user._id} >
                           {user.firstName  + ' ' + user.lastName}
-                        </MenuItem>
-                    )
-                ))}
+                        </MenuItem>)
+                )}
               </Select>
             </FormControl>
           </Grid>
@@ -67,13 +66,13 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
           Teammates:
         </Typography>
         <ul>
-          {stepperData.participants.map((name, index) => (
+          {stepperData.participants.map((user, index) => (
               <li
                   key={index}
-                  onClick={() => handleNameClick(name)}
+                  onClick={() => handleRemoveName(user)}
                   style={{ cursor: 'pointer' }}
               >
-                {name}
+                {user.firstName  + ' ' + user.lastName}
               </li>
           ))}
         </ul>
