@@ -6,11 +6,12 @@ import InvisibleNamesList from './step2/step2.jsx';
 import CreateKpi from "./step3/step3.jsx";
 
 
-const StepBox = ({ active, step, stepperData, setStepperData}) => {
+const StepBox = ({setCompleted, completed, active, step, stepperData, setStepperData}) => {
 
   const boxStyle = {
-    width: '773px',
-    height: '417px',
+    marginTop: '3%',
+    width: '90%',
+    height: '65%',
     borderRadius: '15px', 
     background: '#121231',
     display: active ? 'block' : 'none',
@@ -19,9 +20,9 @@ const StepBox = ({ active, step, stepperData, setStepperData}) => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     color: '#fff',
-    padding: '20px',
+    padding: '2%',
     overflowY: 'auto',
-    minHeight: '400px',
+    minHeight: 'auto',
   };
 
 

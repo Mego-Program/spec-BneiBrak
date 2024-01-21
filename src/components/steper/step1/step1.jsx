@@ -26,6 +26,14 @@ const TextEditor = ({stepperData, setStepperData}) => {
         <RichTextEditor stepperData={stepperData} setStepperData={setStepperData}
                         aria-label="Content"
                         label="Content"
+                        fullWidth
+                        placeholder="Content"
+                        style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
+                        InputProps={{
+                            style: {
+                                color: 'white',
+                            },
+                        }}
         />
     </div>
   );
