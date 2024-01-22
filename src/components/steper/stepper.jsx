@@ -35,11 +35,11 @@ export default function HorizontalNonLinearStepper() {
   return (
     <Box sx={{ width: '90%', margin: '0 auto', marginTop: '3%' }}>
         <StepsLabel activeStep={activeStep} setActiveStep={setActiveStep}
-                    completed={completed} steps={steps}/>
+                    completed={completed} steps={steps}
+        />
 
         <StepBox active={true} step={activeStep + 1}
                setStepperData={setStepperData} stepperData={stepperData}
-               setCompleted={setCompleted} completed={completed}
                sx={{width: '100%', high:'80%'}}
         />
 

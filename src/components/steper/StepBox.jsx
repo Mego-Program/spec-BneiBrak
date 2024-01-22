@@ -6,7 +6,7 @@ import InvisibleNamesList from './step2/step2.jsx';
 import CreateKpi from "./step3/step3.jsx";
 
 
-const StepBox = ({setCompleted, completed, active, step, stepperData, setStepperData}) => {
+const StepBox = ({active, step, stepperData, setStepperData}) => {
 
   const boxStyle = {
     marginTop: '3%',
