@@ -11,9 +11,7 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
         const token = localStorage.getItem("authToken");
         // console.log('token:', token)
         try {
-            const response = await axios.get(`${import.meta.env.
-                    userHome}`,
-                    //VITE_BACKEND_URL}/infraImport/allUsers`,
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/infraImport/allUsers`,
                 {headers: {'Authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
             setRemainNames(response.data.data.result);
             setAllNames(response.data.data.result);
