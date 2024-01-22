@@ -74,7 +74,7 @@ function SpecList() {
             <Grid item xs={10}>
                 <Grid container spacing={2} style={{ width: '100%' }}>
                     <Grid item xs={12}>
-                        <NewSpecButton/>
+
                     </Grid>
                     {[...teamSpecs].reverse().map((spec) => (
                         <Grid key={spec._id} item xs={12} >
