@@ -12,10 +12,17 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 
+
+/**
+ * Component for displaying a list of specifications.
+ * @component
+ */
 function SpecList() {
+    // State to hold the list of all the specs
     const [teamSpecs, setTeamSpecs] = useState([]);
     const [flag, setFlag] = useState(true);
 
+    // Get all the specs from the Database and set them in the state
     const getSpecs = async () => {
         try {
             if (flag) {
@@ -32,7 +39,8 @@ function SpecList() {
     function renderList() {setFlag(true)}
 
     return (
-        <Grid container spacing={2} sx={{ width: '130%', left: '5%' }}>
+        <Grid container spacing={2} sx={{ width: '125%', left: '5%' }}>
+
             <Grid item xs={1}>
                 <Timeline
                     position="left"
@@ -41,7 +49,7 @@ function SpecList() {
                     {[...teamSpecs].reverse().map((spec, index) => (
                         <TimelineItem
                             key={spec._id}
-                            sx={{ height: `${100 / teamSpecs.length}%` }}
+                            sx={{ height: `${100 / (teamSpecs.length+1)}%` }}
                         >
                             <TimelineSeparator>
                                 <TimelineDot color="secondary" />
@@ -61,7 +69,6 @@ function SpecList() {
                         </TimelineItem>
                     ))}
                 </Timeline>
-
             </Grid>
 
             <Grid item xs={10}>
@@ -69,8 +76,6 @@ function SpecList() {
                     <Grid item xs={12}>
 
                     </Grid>
-
-
                     {[...teamSpecs].reverse().map((spec) => (
                         <Grid key={spec._id} item xs={12} >
                             <div style={{ width: '200%'}}>
@@ -78,9 +83,9 @@ function SpecList() {
                             </div>
                         </Grid>
                     ))}
-
                 </Grid>
             </Grid>
+
         </Grid>
     );
 }

@@ -12,7 +12,7 @@ const InvisibleNamesList = ({stepperData, setStepperData}) => {
         // console.log('token:', token)
         try {
             const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/infraImport/allUsers`,
-                {headers: {'authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
+                {headers: {'Authorization': token, 'Content-Type': 'application/json; charset=utf-8',}})
             setRemainNames(response.data.data.result);
             setAllNames(response.data.data.result);
         } catch (error) {console.error('Error fetching names:', error)}

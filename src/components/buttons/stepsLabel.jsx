@@ -10,7 +10,7 @@ const customConnectorStyles = {
     },
 };
 
-const StepsLabel = ({ activeStep, setActiveStep, steps }) => {
+const StepsLabel = ({ activeStep, setActiveStep, steps, completed }) => {
 
     const handleStep = (step) => {
         setActiveStep(step);
@@ -37,7 +37,7 @@ const StepsLabel = ({ activeStep, setActiveStep, steps }) => {
                                     width: activeStep === index ? 191 : 38,
                                     height: 38,
                                     borderRadius: activeStep === index ? '26px' : '50%',
-                                    backgroundColor: '#121231',
+                                    backgroundColor: completed[index] ? '#F6C927' : '#121231',
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
