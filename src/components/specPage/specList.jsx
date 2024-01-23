@@ -24,9 +24,10 @@ function SpecList() {
 
     // Get all the specs from the Database and set them in the state
     const getSpecs = async () => {
-        try {if (flag) {
+        try {
+            if (flag) {
                 const listSpec = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`);
-                setTeamSpecs(listSpec.data.data);
+                setTeamSpecs(listSpec.data.allSpecsList);
                 setFlag(false);
             }
         } catch (error) {
