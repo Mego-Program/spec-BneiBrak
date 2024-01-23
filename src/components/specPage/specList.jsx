@@ -27,7 +27,7 @@ function SpecList() {
         try {
             if (flag) {
                 const listSpec = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`);
-                setTeamSpecs(listSpec.data.data);
+                setTeamSpecs(listSpec.data.allSpecsList);
                 setFlag(false);
             }
         } catch (error) {
