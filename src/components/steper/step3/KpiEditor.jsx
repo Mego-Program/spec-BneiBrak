@@ -19,31 +19,34 @@ export function CustomDropdown({ setKpiList, kpiList, id }) {
 
     return (
         <div>
-            <FormControl
-                sx={{
-                    m: 1,
-                    minWidth: 130,
-                    "& .MuiOutlinedInput-notchedOutline": { border: "none" },
-                }}
-            >
-                <InputLabel id="select-label" style={{ color: "white" }}>
-                    Select-Option
-                </InputLabel>
-                <Select
-                    labelId="select-label"
-                    id="select"
-                    value={kpi.option}
-                    onChange={handleChange}
-                    label="Select Option"
-                    style={{ color: "white" }}
+            {setKpiList && (
+                <FormControl
                     sx={{
-                        "& .MuiSelect-icon": { color: "white" },
+                        m: 1,
+                        minWidth: 130,
+                        "& .MuiOutlinedInput-notchedOutline": { border: "none" },
                     }}
                 >
-                    <MenuItem value="within">Within</MenuItem>
-                    <MenuItem value="until">Until</MenuItem>
-                </Select>
-            </FormControl>
+                    <InputLabel id="select-label" style={{ color: "white" }}>
+                        Select-Option
+                    </InputLabel>
+                    <Select
+                        labelId="select-label"
+                        id="select"
+                        value={kpi.option}
+                        onChange={handleChange}
+                        label={(setKpiList) ? "Select Option" : undefined}
+                        style={{ color: "white" }}
+                        sx={{
+                            "& .MuiSelect-icon": { color: "white" },
+                        }}
+                    >
+                        <MenuItem value="within">Within</MenuItem>
+                        <MenuItem value="until">Until</MenuItem>
+                    </Select>
+                </FormControl>
+            )}
+            {!setKpiList && <div style={{color: 'white'}}>{kpi.option + ':'}</div>}
         </div>
     );
 }
@@ -63,24 +66,29 @@ export function InputTextLine({ kpiList, setKpiList, id }) {
     };
 
     return (
-        <Box
-            component="form"
-            sx={{
-                "& > :not(style)": { m: 1, width: "17ch" },
-                "& .MuiInputBase-root": { borderBottom: "1px solid white" },
-            }}
-            noValidate
-            autoComplete="off"
-        >
-            <TextField
-                id="standard-basic"
-                label={<span style={{ color: "white" }}>Write an assignment</span>}
-                variant="standard"
-                inputProps={inputProps}
-                value={kpi.description}
-                onChange={handleTextChange}
-            />
-        </Box>
+        <>
+            {setKpiList && (
+                <Box
+                    component="form"
+                    sx={{
+                        "& > :not(style)": { m: 1, width: "17ch" },
+                        "& .MuiInputBase-root": { borderBottom: "1px solid white" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                >
+                    <TextField
+                        id="standard-basic"
+                        label={<span style={{ color: "white" }}>Write an assignment</span>}
+                        variant="standard"
+                        inputProps={inputProps}
+                        value={kpi.description}
+                        onChange={handleTextChange}
+                    />
+                </Box>
+            )}
+            {!setKpiList && <div style={{color: 'white'}}>{kpi.description + ',\t\t'}</div>}
+        </>
     );
 }
 
@@ -97,6 +105,7 @@ export function CustomPeriod({ kpiList, setKpiList, id }) {
 
     return (
         <div>
+            {setKpiList && (
             <FormControl
                 sx={{
                     m: 1,
@@ -122,6 +131,8 @@ export function CustomPeriod({ kpiList, setKpiList, id }) {
                     <MenuItem value="months">Months</MenuItem>
                 </Select>
             </FormControl>
+            )}
+            {!setKpiList && <div style={{color: 'white'}}>{kpi.period}</div>}
         </div>
     );
 }
@@ -138,7 +149,9 @@ export function CustomNumberField({ kpiList, setKpiList, id }) {
     };
 
     return (
-        <Box
+        <>
+            {setKpiList && (
+                <Box
             component="form"
             sx={{
                 "& > :not(style)": { m: 1, width: "17ch" },
@@ -160,6 +173,8 @@ export function CustomNumberField({ kpiList, setKpiList, id }) {
                     onChange: handleInputChange,
                 }}
             />
-        </Box>
+        </Box>)}
+            {!setKpiList && <div style={{color: 'white'}}>{kpi.days + '-'}</div>}
+            </>
     );
 }

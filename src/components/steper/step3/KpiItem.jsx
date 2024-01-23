@@ -12,7 +12,8 @@ const KpiItem = ({onDelete, id, kpiList, setKpiList}) => {
       style={{ color: "white", marginBottom: 20 }}
       sx={{
         "& > :not(style)": { mx: "auto", my: "auto" },
-        display: setKpiList ? 'absolute' : "flex",
+          position: !setKpiList ? 'absolute' : "relative",
+        display: "flex",
         flexDirection: "row",
         gap: 0.5,
         alignItems: "center",
@@ -22,11 +23,11 @@ const KpiItem = ({onDelete, id, kpiList, setKpiList}) => {
         padding: 2,
       }}
     >
-      We will <InputTextLine kpiList={kpiList} setKpiList={setKpiList} id={id}/>
+      We will: <InputTextLine kpiList={kpiList} setKpiList={setKpiList} id={id}/>
         <CustomDropdown  kpiList={kpiList} setKpiList={setKpiList} id={id}/>
         <CustomNumberField kpiList={kpiList} setKpiList={setKpiList} id={id}/>{" "}
       <CustomPeriod kpiList={kpiList} setKpiList={setKpiList} id={id}/>
-      <AlertDialog onDelete={onDelete} id={id} item={'Kpi'}/>
+        {setKpiList && (<AlertDialog onDelete={onDelete} id={id} item={'Kpi'}/>)}
     </Typography>
   );
 };

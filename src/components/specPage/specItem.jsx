@@ -96,9 +96,9 @@ export default function SpecItem({ spec, renderList }) {
                         </Typography>
                     </Grid>
                     <Grid container spacing={3} justifyContent="flex-start">
-                        <Grid item xs={12} style={{ display: 'flex', flexDirection: 'column' }}>
+                        <Grid item xs={12} style={{ display: 'flex', flexDirection: 'column' , height: '200px', width: '100%'}}>
                             <h4 style={{ color: '#F6C927' }}>KPIs:</h4>
-                            <div style={{position: 'absolute', display: 'relative', flexDirection: 'column'}}>
+                            <div style={{display: 'relative', flexDirection: 'column'}}>
                                 {spec.kpis.map((item, index) => (
                                     <Typography key={index}>
                                         <KpiItem
@@ -115,8 +115,6 @@ export default function SpecItem({ spec, renderList }) {
                     </Grid>
                 </CardContent>
             </Collapse>
-
-
         </Card>
     );
 }
