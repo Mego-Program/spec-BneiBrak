@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import draftToHtml from 'draftjs-to-html';
 
-import {Card, CardContent, Typography, Grid, Avatar,
-    AvatarGroup, Collapse} from '@mui/material';
+import {
+    Card, CardContent, Typography, Grid, Avatar,
+    AvatarGroup, Collapse, colors
+} from '@mui/material';
 
 import DeleteButton from "../buttons/DeleteButton.jsx";
 import StatusButton from "../buttons/StatusButton.jsx";
 import EditButton from "../buttons/EditButton.jsx";
 import ExpandButton from "../buttons/ExpandButton.jsx";
+import KpiItem from "../steper/step3/KpiItem.jsx";
 
 
 /**
@@ -33,7 +36,6 @@ export default function SpecItem({ spec, renderList }) {
                 borderStyle: 'solid',
                 opacity: cardOpacity,
                 width: '90%',
-                height: expanded ? '100%' : '50%',
                 marginLeft: '5%',
                 display: 'flex',
                 flexDirection: 'column',
@@ -42,13 +44,17 @@ export default function SpecItem({ spec, renderList }) {
             }}
         >
             <CardContent >
-                <Grid container spacing={3} style={{ position: 'relative' }}>
-
-                    <Grid item xs={12} sm={6}>
-                        <Typography sx={{ fontSize: '25px' }}>{spec.title}</Typography>
+                <Grid container spacing={3} style={{position: 'relative', minHeight: '110px'}}>
+                    <h4 style={{color: '#F6C927'}}>-   Title:</h4>
+                    <Grid item xs={12} style={{position: 'absolute', top: '20px', left: '0'}}>
+                        <Typography sx={{
+                            fontSize: '25px', position: 'relative', display: 'inline-block',
+                            maxWidth: '350px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
+                        }}>{spec.title}</Typography>
                     </Grid>
 
-                    <Grid item xs={12} sm={6} style={{ position: 'absolute', top: '0', right: '0' }}>
+
+                    <Grid item xs={12} style={{position: 'absolute', top: '0', right: '0'}}>
 
                         <Grid container spacing={3} justifyContent="">
                             <StatusButton spec={spec} renderList={renderList} isInProcess={isInProcess}/>
@@ -58,27 +64,58 @@ export default function SpecItem({ spec, renderList }) {
                                 <DeleteButton spec={spec} renderList={renderList}/>
                             </Grid>
                         </Grid>
-
-                        <AvatarGroup >
-                            {spec.participants.map((person, index) => (
-                                <Avatar key={index} alt={person.lastName} sx={{ bgcolor: '#121231', color: '#F6C927' }}>
-                                    {person[0]}
-                                </Avatar>
-                            ))}
-                        </AvatarGroup>
+                        <h4 style={{
+                            position: 'absolute',
+                            bottom: '-90',
+                            right: '100',
+                            marginTop: '0%',
+                            color: '#F6C927'
+                        }}>Participants:</h4>
+                        <Grid style={{position: 'absolute', bottom: '-80', right: '0'}}>
+                            <AvatarGroup>
+                                {spec.participants.map((person, index) => (
+                                    <Avatar key={index} alt={person.lastName}
+                                            sx={{bgcolor: '#121231', color: '#F6C927', marginTop: '6px'}}>
+                                        {person.avatar}
+                                    </Avatar>
+                                ))}
+                            </AvatarGroup>
+                        </Grid>
                     </Grid>
                 </Grid>
             </CardContent>
 
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <Collapse in={expanded} timeout="auto" unmountOnExit style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
                 <CardContent>
-                    <Typography sx={{ marginBottom: '60px', fontSize: '12px' }}>
-                        <Grid item xs={12}>
-                            <div dangerouslySetInnerHTML={{ __html: draftToHtml(JSON.parse(spec.content)) }} />
+                    <Grid item xs={12} style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                        <h4 style={{ color: '#F6C927' }}>Description:</h4>
+                        <Typography sx={{ fontSize: '12px' }}>
+                            <Grid item xs={12}>
+                                <div dangerouslySetInnerHTML={{ __html: draftToHtml(JSON.parse(spec.content)) }} />
+                            </Grid>
+                        </Typography>
+                    </Grid>
+                    <Grid container spacing={3} justifyContent="flex-start">
+                        <Grid item xs={12} style={{ display: 'flex', flexDirection: 'column' }}>
+                            <h4 style={{ color: '#F6C927' }}>KPIs:</h4>
+                            <div style={{position: 'absolute', display: 'relative', flexDirection: 'column'}}>
+                                {spec.kpis.map((item, index) => (
+                                    <Typography key={index}>
+                                        <KpiItem
+                                            key={index}
+                                            id={item._id}
+                                            onDelete={null}
+                                            kpiList={spec.kpis}
+                                            setKpiList={null}
+                                        />
+                                    </Typography>
+                                ))}
+                            </div>
                         </Grid>
-                    </Typography>
+                    </Grid>
                 </CardContent>
             </Collapse>
+
 
         </Card>
     );

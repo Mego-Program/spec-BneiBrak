@@ -39,53 +39,38 @@ function SpecList() {
     function renderList() {setFlag(true)}
 
     return (
-        <Grid container spacing={2} sx={{ width: '125%', left: '5%' }}>
+        <Grid>
+            <Grid >
+                <NewSpecButton />
+            </Grid>
 
-            <Grid item xs={1}>
-                <Timeline
-                    position="left"
-                    sx={{width: '350%', padding: '1px', height: '100%', marginTop: '75px'}}
-                >
+            <Grid item xs={12} sx={{marginLeft: '-30%', padding: '1px', height: '900%'}}>
+                <Timeline >
                     {[...teamSpecs].reverse().map((spec, index) => (
-                        <TimelineItem
-                            key={spec._id}
-                            sx={{ height: `${100 / (teamSpecs.length+1)}%` }}
-                        >
+                        <TimelineItem key={index} sx={{ minHeight: `${100 / (teamSpecs.length + 1)}%`}}>
+
                             <TimelineSeparator>
                                 <TimelineDot color="secondary" />
                                 {index < teamSpecs.length && (
-                                    <TimelineConnector sx={{ backgroundColor: 'secondary.main' }}/>
+                                    <TimelineConnector sx={{ backgroundColor: 'secondary.main' }} />
                                 )}
                             </TimelineSeparator>
 
-                            <TimelineContent
-                                sx={{
-                                    color: 'white',
-                                    opacity: spec.status === 'Done' ? 0.5 : 1,
-                                }}
-                            >
-                                <span>{spec.date}</span>
+                            <TimelineContent sx={{ color: 'white', opacity: spec.status === 'Done' ? 0.5 : 1 }}>
+
+                                <Grid item xs={1} sx={{marginLeft: '-50%'}}> {spec.date} </Grid>
+
+                                <Grid key={index} item xs={11} sx={{minHeight: '100%'}}>
+                                    <div style={{ width: '500%', marginLeft: '-30%'}}>
+                                        <SpecItem spec={spec} renderList={renderList} />
+                                    </div>
+                                </Grid>
+
                             </TimelineContent>
                         </TimelineItem>
                     ))}
                 </Timeline>
             </Grid>
-
-            <Grid item xs={10}>
-                <Grid container spacing={2} style={{ width: '100%' }}>
-                    <Grid item xs={12}>
-
-                    </Grid>
-                    {[...teamSpecs].reverse().map((spec) => (
-                        <Grid key={spec._id} item xs={12} >
-                            <div style={{ width: '200%'}}>
-                                <SpecItem spec={spec} renderList={renderList} />
-                            </div>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Grid>
-
         </Grid>
     );
 }
