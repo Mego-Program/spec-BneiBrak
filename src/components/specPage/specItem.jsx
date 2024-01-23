@@ -61,8 +61,9 @@ export default function SpecItem({ spec, renderList }) {
 
                         <AvatarGroup >
                             {spec.participants.map((person, index) => (
-                                <Avatar key={index} alt={person.lastName} sx={{ bgcolor: '#121231', color: '#F6C927' }}>
-                                    {person[0]}
+                                <Avatar key={index} alt={person.lastName}
+                                        sx={{ bgcolor: '#121231', color: '#F6C927', marginTop: '10px'}}>
+                                    {person.avatar}
                                 </Avatar>
                             ))}
                         </AvatarGroup>
