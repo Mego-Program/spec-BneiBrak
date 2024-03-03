@@ -12,7 +12,7 @@ const KpiItem = ({onDelete, id, kpiList, setKpiList}) => {
       style={{ color: "white", marginBottom: 20 }}
       sx={{
         "& > :not(style)": { mx: "auto", my: "auto" },
-          position: !setKpiList ? 'absolute' : "relative",
+          position: "relative",
         display: "flex",
         flexDirection: "row",
         gap: 0.5,
