@@ -96,7 +96,7 @@ export default function SpecItem({ spec, renderList }) {
                         </Typography>
                     </Grid>
                     <Grid container spacing={3} justifyContent="flex-start">
-                        <Grid item xs={12} style={{ display: 'flex', flexDirection: 'column' , height: '200px', width: '100%'}}>
+                        <Grid item xs={12} style={{ display: 'relative', flexDirection: 'column' , minHeight: '50px', width: '100px'}}>
                             <h4 style={{ color: '#F6C927' }}>KPIs:</h4>
                             <div style={{display: 'relative', flexDirection: 'column'}}>
                                 {spec.kpis.map((item, index) => (
