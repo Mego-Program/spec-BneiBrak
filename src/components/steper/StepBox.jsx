@@ -10,19 +10,13 @@ const StepBox = ({active, step, stepperData, setStepperData}) => {
 
   const boxStyle = {
     marginTop: '3%',
-    width: '90%',
-    height: '65%',
+    height: '400px',
     borderRadius: '15px', 
     background: '#121231',
     display: active ? 'block' : 'none',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
     color: '#fff',
     padding: '2%',
     overflowY: 'auto',
-    minHeight: 'auto',
   };
 
 

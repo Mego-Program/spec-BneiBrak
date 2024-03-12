@@ -7,34 +7,17 @@ const TextEditor = ({stepperData, setStepperData}) => {
     return (
     <div>
       <TextField
-        aria-label="Title"
-        label="Title"
-        minRows={3}
-        fullWidth
-        placeholder="Title"
+        aria-label="Title" label="Title" placeholder="Title" fullWidth
         value={stepperData.title}
-        onChange={(e) => {
-          setStepperData({ ...stepperData, title: e.target.value})
-          }}
-        style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
-        InputProps={{
-          style: {
-            color: 'white',
-          },
-        }}
+        onChange={(e) => {setStepperData({ ...stepperData, title: e.target.value})}}
+        style={{ marginTop: '10px', backgroundColor: '#21213E', color: '#fff', borderRadius: '7px' }}
+        InputProps={{style: {color: 'white',},}}
       />
+
         <RichTextEditor stepperData={stepperData} setStepperData={setStepperData}
-                        aria-label="Content"
-                        label="Content"
-                        fullWidth
-                        placeholder="Content"
-                        style={{ width: '100%', marginTop: '10px', backgroundColor: '#21213E', color: '#fff' }}
-                        InputProps={{
-                            style: {
-                                color: 'white',
-                            },
-                        }}
+                        aria-label="Content" label="Content" placeholder="Content"
         />
+
     </div>
   );
 };

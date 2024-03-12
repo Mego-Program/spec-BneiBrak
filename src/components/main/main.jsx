@@ -11,6 +11,8 @@ const root = createRoot(rootElement);
 root.render(
 <ThemeProvider theme={theme}>
   <CssBaseline />
-  <Routes />
+  <div style={{display: 'flex'}}>
+    <Routes />
+  </div>
 </ThemeProvider>,);
 

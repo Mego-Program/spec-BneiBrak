@@ -44,7 +44,7 @@ export default function ForwardBackward({activeStep, setActiveStep, completed, s
         <Box
             sx={{
                 position: 'flex',
-                width: '100%', high:'20%',
+                // width: '100%', high:'20%',
                 display: 'flex',
                 justifyContent: activeStep === 0 ? 'flex-end' : 'space-between',
             }}

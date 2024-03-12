@@ -4,11 +4,11 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import React from "react";
 
-const customConnectorStyles = {
-    '& .MuiStepConnector-lineHorizontal': {
-        border: '2px solid #121231',
-    },
-};
+// const customConnectorStyles = {
+//     '& .MuiStepConnector-lineHorizontal': {
+//         border: '2px solid #121231',
+//     },
+// };
 
 const StepsLabel = ({ activeStep, setActiveStep, steps, completed }) => {
 
@@ -24,11 +24,11 @@ const StepsLabel = ({ activeStep, setActiveStep, steps, completed }) => {
                 backgroundColor: 'transparent',
                 padding: 0,
                 zIndex: 1,
-                ...customConnectorStyles,
+                // ...customConnectorStyles,
             }}
         >
             {steps.map((label, index) => (
-                <Step key={index} sx={{ width: '100%' }}>
+                <Step key={index}>
                     <StepLabel
                         onClick={() => handleStep(index)}
                         icon={
@@ -45,7 +45,6 @@ const StepsLabel = ({ activeStep, setActiveStep, steps, completed }) => {
                                     color: 'white',
                                     cursor: 'pointer',
                                     zIndex: 2,
-                                    marginBottom: 52,
                                 }}
                             >
                                 {activeStep === index ? label : index + 1}
