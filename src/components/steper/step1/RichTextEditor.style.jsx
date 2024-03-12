@@ -6,10 +6,10 @@ export const RichEditorRoot = styled(Box)({
     background:"#21213E",
     fontFamily: "Georgia, serif",
     fontSize: "14px",
-    padding: "15px",
-    height: "220px",
+    height: "260px",
     color: '#fff',
-    marginTop: '10px',
+    borderRadius: '7px',
+    borderLeft: '1px inset #21213E',
 
     "& .public-DraftStyleDefault-pre": {
         backgroundColor: "rgba(0, 0, 0, 0.05)",
@@ -29,7 +29,7 @@ export const RichEditorEdit = styled('div')({
       padding: '15px',
     },
     '& .public-DraftEditor-content': {
-      minheight: '10px',
+      minHeight: '10px',
     },
     '& .RichEditor-blockquote': {
       borderLeft: '5px solid #eee',

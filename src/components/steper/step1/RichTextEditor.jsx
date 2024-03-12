@@ -12,7 +12,8 @@ const style = {
     display: "inline-block",
   },
   RichEditor_activeButton: {
-    color: "#5890ff",
+    // color: "#5890ff",
+    color: "#F6C927",
     cursor: "pointer",
     marginRight: "16px",
     padding: "2px 0",
@@ -99,6 +100,8 @@ const RichTextEditor = ({stepperData, setStepperData}) => {
 
   return (
     <RichEditorRoot>
+      <div style={{background: '#121231', paddingLeft: '2%', marginTop: '3%',
+        borderRadius: '-7px', borderTop: '1px inset #21213E', borderRight: '1px solid black',}}>
       <BlockStyleControls
         editorState={editorState}
         onToggle={toggleBlockType}
@@ -107,7 +110,9 @@ const RichTextEditor = ({stepperData, setStepperData}) => {
         editorState={editorState}
         onToggle={toggleInlineStyle}
       />
-      <div className={className} onClick={focusEditor}>
+      </div>
+
+      <div className={className} onClick={focusEditor} style={{marginLeft: '2%', marginTop: '2%',}}>
         <Editor
           blockStyleFn={getBlockStyle}
           customStyleMap={styleMap}
